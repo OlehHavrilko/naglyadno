@@ -2,76 +2,80 @@
 
 ## 0. Что уже сделано в этом репозитории
 
-- Node.js 24 поставлен (`winget`), зависимости установлены (`npm install`),
-  браузер Playwright/Chromium скачан.
-- Собран пайплайн `src/`, схема БД, рендер слайдов, workflow n8n.
+- Node.js 24 поставлен (`winget`), `npm install` выполнен, Playwright/Chromium скачан.
+- Собран пайплайн `src/`, схема БД (`node:sqlite`), рендер слайдов, n8n (Docker).
 - Рендер проверен: `npm run render:demo` → `agent/output/demo-render/*.png`.
+- Режим по умолчанию — **`PUBLISH_PROVIDER=manual`**: пайплайн готовит пакет,
+  TikTok ты загружаешь руками.
 
-## 1. Что нужно сделать тебе — аккаунты и ключи
+## 1. Ключи (`.env` уже создан из `.env.example`)
 
-Открой `.env` (уже создан из `.env.example`) и заполни.
+### Сейчас нужен только один
 
-### Обязательно
 | Ключ | Где взять |
 |---|---|
 | `ANTHROPIC_API_KEY` | https://console.anthropic.com → API Keys |
 
-### Публикация — выбери один путь
-| Путь | Ключи | Плюсы / минусы |
-|---|---|---|
-| **Ayrshare** (рекомендую для старта) | `AYRSHARE_API_KEY` (+ `AYRSHARE_PROFILE_KEY` если профилей несколько) — https://www.ayrshare.com | аудит TikTok уже пройден у них; платно от ~$0/мес на старте |
-| **Свой TikTok app** | `TIKTOK_CLIENT_KEY/SECRET`, `TIKTOK_ACCESS_TOKEN`, `TIKTOK_REFRESH_TOKEN` — https://developers.tiktok.com | бесплатно, но нужен аудит приложения для публичных постов (недели) |
-
-Ставь `PUBLISH_PROVIDER=ayrshare` или `=tiktok`.
-
-### Хостинг картинок (TikTok забирает PNG по публичным ссылкам)
-Любой S3-совместимый бакет. Проще всего **Cloudflare R2** (есть бесплатный объём):
-`S3_ENDPOINT` (напр. `https://<accountid>.r2.cloudflarestorage.com`), `S3_BUCKET`,
-`S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`, `S3_PUBLIC_BASE_URL` (публичный домен раздачи бакета).
-
-### Ревью в Telegram (рекомендуется на старте)
-1. Создай бота у `@BotFather` → `TELEGRAM_BOT_TOKEN`.
-2. Напиши боту любое сообщение, узнай свой id у `@userinfobot` → `TELEGRAM_CHAT_ID`.
-3. `AUTO_PUBLISH=false` — пайплайн будет спрашивать перед постингом.
-   Позже поставишь `true` для полного автомата.
+`scout`, `editor`, `script` без него не работают. `render` и источники — работают.
 
 ### Необязательно
-- `REDDIT_CLIENT_ID/SECRET` — https://www.reddit.com/prefs/apps (иначе Reddit-источник просто пропускается).
+- `REDDIT_CLIENT_ID/SECRET` — https://www.reddit.com/prefs/apps (иначе Reddit-источник пропускается; HN и GitHub работают без ключей).
 - `PRODUCTHUNT_TOKEN` — https://api.producthunt.com/v2/oauth/applications.
 
-## 2. Первый прогон
+### Понадобится позже (только для автопостинга)
+`AYRSHARE_API_KEY` + `S3_*` (Cloudflare R2) + `TELEGRAM_*`. Пока не трогаем.
 
-> Открой новый терминал (чтобы подхватился PATH с `node`). Проверка: `node -v` → v24.x
+## 2. Прогон (ручная публикация)
+
+> Новый терминал, чтобы подхватился PATH. Проверка: `node -v` → v24.x
 
 ```bash
 cd D:\claude\naglyadno
-npm run db:init                 # создать data/naglyadno.db (уже создан, повтор безопасен)
-npm run scout                   # источники → Claude → кандидаты в БД
-npm run cycle status            # посмотреть, что появилось
-npm run editor                  # выбрать темы цикла
-npm run script                  # сгенерировать колоды слайдов
-npm run render                  # PNG в agent/output/item-<id>/
-npm run publish                 # ревью в Telegram → S3 → TikTok
+npm run cycle        # весь цикл: scout → editor → script → render → publish(manual)
+npm run status       # что в БД и в каком статусе
 ```
 
-Или всё разом:
+По стадиям, если нужно вмешаться посередине:
 
 ```bash
-npm run cycle full
+npm run scout        # источники → Claude → кандидаты
+npm run editor       # выбор тем цикла (ITEMS_PER_CYCLE)
+npm run script       # колоды слайдов
+npm run render       # PNG 1080×1350 → agent/output/item-<id>/
+npm run publish      # собрать PUBLISH.md рядом со слайдами
 ```
 
-Метрики опубликованных постов (через 48 ч):
+На выходе для каждого материала:
+
+```
+agent/output/item-<id>/
+  01.png … 06.png     слайды по порядку
+  deck.json           исходные данные колоды
+  PUBLISH.md          подпись, хэштеги, ссылка «пощупать», фактчек, что сделать
+```
+
+## 3. После ручной публикации в TikTok
 
 ```bash
-npm run track
+npm run mark-posted -- <id> <ссылка-на-пост>
+# позже, когда будут цифры:
+npm run mark-posted -- <id> <ссылка> <views> <likes> <saves> <comments>
 ```
 
-## 3. Автоматизация по расписанию
+Это фиксирует тему в БД (антиповтор на 30 дней) и ведёт лог. Без этого шага
+пайплайн всё равно не возьмёт ту же тему повторно, но не будет знать URL и метрик.
 
-- **Просто:** Планировщик заданий Windows на `npm run cycle full` (3×/нед) и `npm run track` (ежедневно).
-- **С историей и ретраями:** n8n — см. `n8n/README.md`, импортируй `n8n/naglyadno-workflow.json`.
+## 4. Планировщик (опционально)
 
-## 4. Переход к полному автомату
+- **Просто:** Планировщик заданий Windows на `npm run cycle` 3×/нед.
+- **С историей/ретраями:** n8n уже поднят в Docker (`docker compose up -d`,
+  http://localhost:5678). Импортируй `n8n/workflows/naglyadno.json`, но стадия
+  `publish` в manual-режиме просто складывает пакет — постить всё равно руками.
+- Пайплайн-сервер для n8n: `npm run server` (порт 8477).
 
-Когда доля материалов «постить без правок» станет высокой:
-`.env` → `AUTO_PUBLISH=true`. Пайплайн перестанет ждать кнопку и будет постить сам.
+## 5. Переход к автопостингу — когда будешь готов
+
+1. Завести Ayrshare + R2 + Telegram-бота, заполнить ключи в `.env`.
+2. `PUBLISH_PROVIDER=ayrshare`, `AUTO_PUBLISH=false` — пайплайн шлёт превью в
+   Telegram с кнопками ✅/❌.
+3. Позже `AUTO_PUBLISH=true` — полный автомат.

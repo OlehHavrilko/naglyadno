@@ -24,11 +24,16 @@ n8n только дирижирует (расписание, порядок, р�
 | `editor` | `src/stages/02-editor.js` | `scouted` + LLM → `selected` (рубрика, хук, наметки), остальное `rejected` | ANTHROPIC |
 | `script` | `src/stages/03-scriptwriter.js` | `selected` + LLM → `scripted` (`slides_json` по схеме) | ANTHROPIC |
 | `render` | `src/stages/04-render.js` | `scripted` → PNG 1080×1350 в `agent/output/item-<id>/`, `rendered` | — (Chromium) |
-| `publish` | `src/stages/05-publish.js` | `rendered` → Telegram-ревью → S3 → TikTok → `published` | Telegram, S3, Ayrshare/TikTok |
-| `track` | `src/stages/06-track.js` | `published` старше 48ч → метрики → `tracked` | Ayrshare |
+| `publish` | `src/stages/05-publish.js` | `manual`: `rendered` → `PUBLISH.md` рядом со слайдами → `ready`.<br>`ayrshare`/`tiktok`: Telegram-ревью → S3 → TikTok → `published` | manual — нет.<br>авто — Telegram, S3, Ayrshare/TikTok |
+| `track` | `src/stages/06-track.js` | `published` старше 48ч → метрики → `tracked` (только авто-режим; для manual метрики вносит `mark-posted`) | Ayrshare |
 
-Статусы одного материала: `scouted → selected → scripted → rendered →
-awaiting_approval → approved → published → tracked` (или `rejected` на любом шаге).
+Статусы одного материала: `scouted → selected → scripted → rendered →`
+– manual: `→ ready → (mark-posted) → published → tracked`
+– авто: `→ awaiting_approval → approved → published → tracked`
+(или `rejected` на любом шаге).
+
+Режим публикации — `PUBLISH_PROVIDER` в `.env`: `manual` (по умолчанию — собрать
+пакет, постить руками), `ayrshare`, `tiktok`.
 
 ## Ревью человеком
 

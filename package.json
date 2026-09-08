@@ -16,6 +16,8 @@
     "render": "node --env-file=.env src/cycle.js render",
     "publish": "node --env-file=.env src/cycle.js publish",
     "track": "node --env-file=.env src/cycle.js track",
+    "mark-posted": "node --env-file=.env src/mark-posted.js",
+    "status": "node src/status.js",
     "db:init": "node src/db.js --init",
     "render:demo": "node src/render/render.js --demo",
     "n8n": "npx --yes n8n"
