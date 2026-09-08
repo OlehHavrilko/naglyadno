@@ -1,0 +1,27 @@
+{
+  "name": "naglyadno",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Автоматический контент-пайплайн канала «Наглядно» — слайды в TikTok",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "server": "node --env-file=.env src/server.js",
+    "cycle": "node --env-file=.env src/cycle.js",
+    "scout": "node --env-file=.env src/cycle.js scout",
+    "editor": "node --env-file=.env src/cycle.js editor",
+    "script": "node --env-file=.env src/cycle.js script",
+    "render": "node --env-file=.env src/cycle.js render",
+    "publish": "node --env-file=.env src/cycle.js publish",
+    "track": "node --env-file=.env src/cycle.js track",
+    "db:init": "node src/db.js --init",
+    "render:demo": "node src/render/render.js --demo",
+    "n8n": "npx --yes n8n"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "playwright": "^1.49.1"
+  }
+}

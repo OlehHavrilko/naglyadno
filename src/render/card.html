@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand-name:"Наглядно"; --brand-tg:"@naglyadno_tech";
+  --bg:#0E1420; --surface:#161E2E; --surface-2:#1E2740;
+  --text:#EDF1F7; --text-muted:#8A97AD;
+  --accent:#FFB23E; --accent-2:#6C5CE7; --pos:#3ED598; --neg:#F26D6D;
+  --font-display:"Unbounded","Onest",system-ui,sans-serif;
+  --font-text:"Onest","Inter",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,monospace;
+}
+.card.light{
+  --bg:#F5F1E8; --surface:#FFFFFF; --surface-2:#F0EADB;
+  --text:#1E2430; --text-muted:#6B7280; --accent:#E1901C; --pos:#2FB985; --neg:#D64545;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#05070c}
+.card{
+  width:1080px;height:1350px;
+  background:var(--bg);color:var(--text);overflow:hidden;
+  position:relative;padding:72px 72px 160px;display:flex;flex-direction:column;
+  font-family:var(--font-text);
+}
+.top{display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);
+  font-size:26px;text-transform:uppercase;letter-spacing:.04em;color:var(--text-muted)}
+.brand{display:flex;align-items:center;gap:14px;color:var(--text)}
+.brand b{font-family:var(--font-display);font-weight:700;letter-spacing:-.01em}
+.rubric{color:var(--accent-2)}
+.num{color:var(--accent)}
+.eye{width:46px;height:46px;flex:0 0 auto}
+.badge{position:absolute;top:64px;right:72px;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.clarity{background:var(--surface-2);border:2px solid var(--accent);color:var(--text);
+  font-family:var(--font-mono);font-size:24px;padding:10px 18px;border-radius:999px;white-space:nowrap}
+.clarity .em{font-size:26px;vertical-align:-3px;margin-right:8px}
+.clarity small{color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;font-size:20px;margin-right:8px}
+h1{font-family:var(--font-display);font-weight:700;font-size:88px;line-height:1.05;letter-spacing:-.01em;margin:40px 0 28px}
+h2{font-family:var(--font-display);font-weight:600;font-size:64px;line-height:1.08;margin:12px 0 24px}
+p{font-size:36px;line-height:1.35;color:var(--text)}
+p.muted{color:var(--text-muted)}
+.term{color:var(--accent)}
+.term small{color:var(--text-muted);font-size:.72em}
+.demo{margin-top:auto;background:var(--surface);border-radius:20px;height:520px;display:flex;
+  align-items:center;justify-content:center;color:var(--text-muted);font-family:var(--font-mono);font-size:28px;
+  border:1px dashed #2c3650;overflow:hidden}
+.demo img{width:100%;height:100%;object-fit:cover}
+.oneframe{margin-top:28px;background:var(--surface);border-radius:20px;flex:1;padding:44px;
+  display:flex;flex-direction:column;gap:20px;border:1px solid #2c3650}
+.anno{display:flex;gap:16px;align-items:flex-start;font-size:32px}
+.anno b{color:var(--accent)}
+.beforeafter{display:flex;gap:24px;margin-top:32px;flex:1}
+.col{flex:1;background:var(--surface);border-radius:20px;padding:40px}
+.col.was{border-top:6px solid var(--neg)}
+.col.now{border-top:6px solid var(--pos)}
+.col h3{font-size:30px;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.05em;margin-bottom:20px}
+.col.was h3{color:var(--neg)} .col.now h3{color:var(--pos)}
+.col li{font-size:32px;line-height:1.4;margin:0 0 16px 28px}
+ul.bul{margin:20px 0 0 34px} ul.bul li{font-size:36px;line-height:1.4;margin-bottom:20px}
+.techline{margin-top:28px;font-family:var(--font-mono);font-size:26px;color:var(--text-muted);
+  border-top:1px solid #2c3650;padding-top:20px}
+.try{margin-top:auto;background:var(--surface-2);border-radius:20px;padding:44px;font-size:36px;line-height:1.4}
+.try b{color:var(--pos)}
+.foretell{margin-top:auto}
+.foretell .line{font-family:var(--font-display);font-weight:600;font-size:56px;line-height:1.12;color:var(--accent)}
+.cta{position:absolute;left:72px;right:72px;bottom:64px;background:var(--accent-2);border-radius:16px;
+  padding:26px 32px;font-size:32px;font-weight:600;color:#fff;display:flex;justify-content:space-between;align-items:center}
+</style>
+</head>
+<body>
+<div id="mount"></div>
+<script>
+const EYE = '<svg class="eye" viewBox="0 0 46 46"><circle cx="23" cy="23" r="21" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="23" cy="23" r="11" fill="#FFB23E"/><circle cx="23" cy="23" r="4.5" fill="#6C5CE7"/></svg>';
+const esc = (s) => String(s ?? '').replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+// <term>термин|расшифровка</term> -> цветной термин с подписью
+function terms(s) {
+  return esc(s).replace(/&lt;term&gt;(.+?)\|(.+?)&lt;\/term&gt;/g,
+    '<span class="term">$1 <small>($2)</small></span>');
+}
+
+function head(meta, slide) {
+  const right = slide.type === 'hook'
+    ? '<span class="rubric">' + esc(meta.rubric || 'Проект дня') + '</span>'
+    : '<span class="num">' + String(slide.index).padStart(2, '0') + ' / ' + String(meta.total).padStart(2, '0') + '</span>';
+  const badge = slide.type === 'hook' && meta.clarity
+    ? '<div class="badge"><span class="clarity"><small>врубишься за</small><span class="em">'
+      + esc(meta.clarity.emoji) + '</span>' + esc(meta.clarity.label) + '</span></div>'
+    : '';
+  return '<div class="top"><span class="brand">' + EYE + '<b>' + esc(meta.brandName || 'Наглядно')
+    + '</b></span>' + right + '</div>' + badge;
+}
+
+function body(slide) {
+  switch (slide.type) {
+    case 'hook':
+      return '<h1>' + esc(slide.title) + '</h1>'
+        + (slide.subtitle ? '<p class="muted">' + esc(slide.subtitle) + '</p>' : '')
+        + '<div class="demo">' + (slide.screenshotDataUri
+            ? '<img src="' + slide.screenshotDataUri + '">'
+            : esc(slide.demoCaption || '[ демо ]')) + '</div>';
+    case 'oneframe':
+      return '<h2>' + esc(slide.heading || 'Как это работает — одним кадром') + '</h2>'
+        + '<div class="oneframe">'
+        + (slide.steps || []).map((s, i) => '<div class="anno"><b>' + (i + 1) + '.</b><span>' + esc(s) + '</span></div>').join('')
+        + (slide.note ? '<p class="muted" style="margin-top:auto">' + esc(slide.note) + '</p>' : '')
+        + '</div>';
+    case 'replaces':
+      return '<h2>' + esc(slide.heading || 'Что это заменяет') + '</h2><div class="beforeafter">'
+        + '<div class="col was"><h3>Раньше</h3><ul>' + (slide.was || []).map((x) => '<li>' + esc(x) + '</li>').join('') + '</ul></div>'
+        + '<div class="col now"><h3>Теперь</h3><ul>' + (slide.now || []).map((x) => '<li>' + esc(x) + '</li>').join('') + '</ul></div>'
+        + '</div>';
+    case 'details':
+      return '<h2>' + esc(slide.heading || 'Детали') + '</h2><ul class="bul">'
+        + (slide.points || []).map((x) => '<li>' + terms(x) + '</li>').join('') + '</ul>'
+        + (slide.techline ? '<p class="techline">' + esc(slide.techline) + '</p>' : '');
+    case 'try':
+      return '<h2>' + esc(slide.heading || 'Пощупать за 30 секунд') + '</h2><div class="try">' + terms(slide.body || '') + '</div>';
+    case 'foretell':
+      return '<h2>' + esc(slide.heading || 'Через год') + '</h2><div class="foretell"><p class="line">' + esc(slide.line || '') + '</p></div>'
+        + (slide.cta ? '<div class="cta"><span>' + esc(slide.cta.left || '') + '</span><span>' + esc(slide.cta.right || 'Telegram @naglyadno_tech →') + '</span></div>' : '');
+    case 'fact':
+      return '<h1>' + esc(slide.title) + '</h1>' + (slide.body ? '<p>' + terms(slide.body) + '</p>' : '');
+    default:
+      return '<h2>' + esc(slide.heading || slide.title || '') + '</h2>' + (slide.body ? '<p>' + terms(slide.body) + '</p>' : '');
+  }
+}
+
+// Вызывается из Playwright: window.renderSlide(meta, slide)
+window.renderSlide = function (meta, slide) {
+  const cls = 'card' + (meta.theme === 'light' ? ' light' : '');
+  document.getElementById('mount').innerHTML =
+    '<div class="' + cls + '">' + head(meta, slide) + body(slide) + '</div>';
+  return true;
+};
+</script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+date,rubric,topic_root,title,platform,post_url,hook,format,views,likes,saves,comments,tg_clicks,notes
+# Заполняется после публикации. topic_root — короткий корень темы для проверки повторов (напр. "removebg", "local-llm-phone").
+# Метрики вносятся вручную или из экспорта аналитики через 48–72 часа после публикации.

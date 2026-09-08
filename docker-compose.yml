@@ -1,0 +1,36 @@
+# n8n — оркестратор пайплайна «Наглядно».
+# Тяжёлую работу (LLM, Playwright-рендер, публикация) выполняет локальный
+# Node-сервер на хосте: src/server.js, порт 8477. n8n дергает его по HTTP
+# через host.docker.internal — так Chromium остаётся на хосте, где уже установлен.
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:latest
+    container_name: naglyadno-n8n
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - WEBHOOK_URL=http://localhost:5678/
+      - GENERIC_TIMEZONE=${TZ:-Europe/Kyiv}
+      - TZ=${TZ:-Europe/Kyiv}
+      - N8N_DIAGNOSTICS_ENABLED=false
+      - N8N_PERSONALIZATION_ENABLED=false
+      - N8N_RUNNERS_ENABLED=true
+      # basic-auth на UI (поменяй пароль)
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=naglyadno
+      # общий секрет для вызовов локального пайплайн-сервера
+      - PIPELINE_URL=http://host.docker.internal:8477
+      - PIPELINE_TOKEN=${PIPELINE_TOKEN:-change-me-local-token}
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./n8n/workflows:/workflows:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  n8n_data:

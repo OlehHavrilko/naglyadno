@@ -1,0 +1,46 @@
+/* «Наглядно» — бренд-токены v0.1
+   Подключается в cards/template.html и в любой будущий рендер карточек. */
+
+:root {
+  /* Имя бренда — единственная точка правки при смене нейминга */
+  --brand-name: "Наглядно";
+  --brand-tagline: "за 3 секунды";
+  --brand-tg: "@naglyadno_tech";
+
+  /* ---- Тёмный шаблон (основной) ---- */
+  --bg: #0E1420;
+  --surface: #161E2E;
+  --surface-2: #1E2740;
+  --text: #EDF1F7;
+  --text-muted: #8A97AD;
+
+  --accent: #FFB23E;      /* янтарный — главный акцент */
+  --accent-2: #6C5CE7;    /* индиго — ссылки, Telegram, «нейро» */
+  --pos: #3ED598;         /* «стало» / позитив */
+  --neg: #F26D6D;         /* «было» / негатив */
+
+  /* ---- Шрифты ---- */
+  --font-display: "Unbounded", "Onest", system-ui, sans-serif;
+  --font-text: "Onest", "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace;
+
+  /* ---- Карточка ---- */
+  --card-w: 1080px;
+  --card-h: 1350px;
+  --pad-x: 72px;
+  --pad-bottom-safe: 160px;
+  --radius: 28px;
+}
+
+/* Светлый шаблон — для мемов, фактов, вовлечения */
+:root[data-theme="light"] {
+  --bg: #F5F1E8;
+  --surface: #FFFFFF;
+  --surface-2: #F0EADB;
+  --text: #1E2430;
+  --text-muted: #6B7280;
+  --accent: #E1901C;
+  --accent-2: #6C5CE7;
+  --pos: #2FB985;
+  --neg: #D64545;
+}

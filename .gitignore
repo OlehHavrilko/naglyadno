@@ -1,0 +1,9 @@
+node_modules/
+.env
+.env.local
+.mcp.json
+data/
+agent/output/*
+!agent/output/.gitkeep
+*.log
+.DS_Store

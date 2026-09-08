@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Наглядно — движок карточек</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Токены продублированы из brand/tokens.css, чтобы файл открывался автономно */
+:root{
+  --brand-name:"Наглядно"; --brand-tg:"@naglyadno_tech";
+  --bg:#0E1420; --surface:#161E2E; --surface-2:#1E2740;
+  --text:#EDF1F7; --text-muted:#8A97AD;
+  --accent:#FFB23E; --accent-2:#6C5CE7; --pos:#3ED598; --neg:#F26D6D;
+  --font-display:"Unbounded","Onest",system-ui,sans-serif;
+  --font-text:"Onest","Inter",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,monospace;
+}
+.light{
+  --bg:#F5F1E8; --surface:#FFFFFF; --surface-2:#F0EADB;
+  --text:#1E2430; --text-muted:#6B7280; --accent:#E1901C; --pos:#2FB985; --neg:#D64545;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#05070c;font-family:var(--font-text);padding:40px;display:flex;flex-wrap:wrap;gap:36px;justify-content:center;align-items:flex-start}
+
+/* ── Карточка: физический размер 1080×1350, в превью ужимаем через zoom
+   (zoom меняет и layout-бокс, поэтому поток остаётся аккуратным без JS) ── */
+.card{
+  width:1080px;height:1350px;zoom:.4;
+  background:var(--bg);color:var(--text);overflow:hidden;border-radius:20px;
+  position:relative;padding:72px 72px 160px;display:flex;flex-direction:column;
+}
+.card.light{background:var(--bg)}
+
+/* ── Постоянные элементы ── */
+.top{display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);
+  font-size:26px;text-transform:uppercase;letter-spacing:.04em;color:var(--text-muted)}
+.brand{display:flex;align-items:center;gap:14px;color:var(--text)}
+.brand b{font-family:var(--font-display);font-weight:700;letter-spacing:-.01em}
+.rubric{color:var(--accent-2)}
+.num{color:var(--accent)}
+.spacer{flex:1}
+
+/* ── Маскот «Наглаз» ── */
+.eye{width:46px;height:46px;flex:0 0 auto}
+.badge{position:absolute;top:64px;right:72px;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.clarity{background:var(--surface-2);border:2px solid var(--accent);color:var(--text);
+  font-family:var(--font-mono);font-size:24px;padding:10px 18px;border-radius:999px;white-space:nowrap}
+.clarity .em{font-size:26px;vertical-align:-3px;margin-right:8px}
+.clarity small{color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;font-size:20px;margin-right:8px}
+
+/* ── Типографика контента ── */
+h1{font-family:var(--font-display);font-weight:700;font-size:88px;line-height:1.05;letter-spacing:-.01em;margin:40px 0 28px}
+h2{font-family:var(--font-display);font-weight:600;font-size:64px;line-height:1.08;margin:12px 0 24px}
+p{font-size:36px;line-height:1.35;color:var(--text)}
+p.muted{color:var(--text-muted)}
+.term{color:var(--accent)}
+.term small{color:var(--text-muted);font-size:.72em}
+
+/* ── Блоки ── */
+.demo{margin-top:auto;background:var(--surface);border-radius:20px;height:520px;display:flex;
+  align-items:center;justify-content:center;color:var(--text-muted);font-family:var(--font-mono);font-size:28px;
+  border:1px dashed #2c3650}
+.oneframe{margin-top:28px;background:var(--surface);border-radius:20px;flex:1;padding:44px;
+  display:flex;flex-direction:column;gap:20px;border:1px solid #2c3650}
+.anno{display:flex;gap:16px;align-items:flex-start;font-size:32px}
+.anno b{color:var(--accent)}
+.beforeafter{display:flex;gap:24px;margin-top:32px;flex:1}
+.col{flex:1;background:var(--surface);border-radius:20px;padding:40px}
+.col.was{border-top:6px solid var(--neg)}
+.col.now{border-top:6px solid var(--pos)}
+.col h3{font-size:30px;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.05em;margin-bottom:20px}
+.col.was h3{color:var(--neg)} .col.now h3{color:var(--pos)}
+.col li{font-size:32px;line-height:1.4;margin:0 0 16px 28px}
+ul.bul{margin:20px 0 0 34px} ul.bul li{font-size:36px;line-height:1.4;margin-bottom:20px}
+.techline{margin-top:28px;font-family:var(--font-mono);font-size:26px;color:var(--text-muted);
+  border-top:1px solid #2c3650;padding-top:20px}
+.try{margin-top:auto;background:var(--surface-2);border-radius:20px;padding:44px;font-size:36px;line-height:1.4}
+.try b{color:var(--pos)}
+.foretell{margin-top:auto}
+.foretell .line{font-family:var(--font-display);font-weight:600;font-size:56px;line-height:1.12;color:var(--accent)}
+.cta{position:absolute;left:72px;right:72px;bottom:64px;background:var(--accent-2);border-radius:16px;
+  padding:26px 32px;font-size:32px;font-weight:600;color:#fff;display:flex;justify-content:space-between;align-items:center}
+.swipe{position:absolute;right:72px;bottom:80px;font-family:var(--font-mono);font-size:28px;color:var(--accent)}
+
+.slidelabel{position:fixed;left:8px;top:8px;background:#000;color:#5b6b8c;font:12px var(--font-mono);
+  padding:4px 8px;border-radius:6px;z-index:10}
+@media print{body{background:#fff;padding:0;gap:0}.card{zoom:1;margin:0;page-break-after:always;border-radius:0}}
+</style>
+</head>
+<body>
+<div class="slidelabel">template.html — 6 слайдов «Проект дня». Печать в PDF = по слайду на страницу. Скриншот каждой карточки = материал для загрузки.</div>
+
+<!-- ─────────── СЛАЙД 01 — ХУК ─────────── -->
+<div class="card">
+  <div class="top">
+    <span class="brand">
+      <svg class="eye" viewBox="0 0 46 46"><circle cx="23" cy="23" r="21" fill="none" stroke="#EDF1F7" stroke-width="2"/><circle cx="23" cy="23" r="11" fill="#FFB23E"/><circle cx="23" cy="23" r="4.5" fill="#6C5CE7"/><path d="M23 2v8M44 23h-8M23 44v-8M2 23h8" stroke="#EDF1F7" stroke-width="2"/></svg>
+      <b>Наглядно</b>
+    </span>
+    <span class="rubric">Проект дня</span>
+  </div>
+  <div class="badge">
+    <span class="clarity"><small>врубишься за</small><span class="em">🟢</span>3 сек</span>
+  </div>
+  <h1>Оно превращает твою болтовню в готовое видео</h1>
+  <p class="muted">Ты наговариваешь идею голосом — на выходе ролик с монтажом, субтитрами и музыкой.</p>
+  <div class="demo">[ демо-гифка: голос → готовый ролик ]</div>
+</div>
+
+<!-- ─────────── СЛАЙД 02 — РАЗБОР ОДНИМ КАДРОМ ─────────── -->
+<div class="card">
+  <div class="top">
+    <span class="brand"><svg class="eye" viewBox="0 0 46 46"><circle cx="23" cy="23" r="21" fill="none" stroke="#EDF1F7" stroke-width="2"/><circle cx="23" cy="23" r="11" fill="#FFB23E"/><circle cx="23" cy="23" r="4.5" fill="#6C5CE7"/></svg><b>Наглядно</b></span>
+    <span class="num">02 / 06</span>
+  </div>
+  <h2>Как это работает — одним кадром</h2>
+  <div class="oneframe">
+    <div class="anno"><b>1.</b><span>Ты диктуешь идею текстом или голосом</span></div>
+    <div class="anno"><b>2.</b><span>Модель пишет сценарий и подбирает нарезку из бесплатных стоков</span></div>
+    <div class="anno"><b>3.</b><span>Сама режет, ставит субтитры, накладывает музыку</span></div>
+    <div class="anno"><b>4.</b><span>Ты получаешь готовый вертикальный ролик — правишь по мелочи</span></div>
+    <p class="muted" style="margin-top:auto">Весь процесс — на одном экране, без видеоредактора.</p>
+  </div>
+</div>
+
+<!-- ─────────── СЛАЙД 03 — ЧТО ЗАМЕНЯЕТ ─────────── -->
+<div class="card">
+  <div class="top">
+    <span class="brand"><svg class="eye" viewBox="0 0 46 46"><circle cx="23" cy="23" r="21" fill="none" stroke="#EDF1F7" stroke-width="2"/><circle cx="23" cy="23" r="11" fill="#FFB23E"/><circle cx="23" cy="23" r="4.5" fill="#6C5CE7"/></svg><b>Наглядно</b></span>
+    <span class="num">03 / 06</span>
+  </div>
+  <h2>Что это заменяет</h2>
+  <div class="beforeafter">
+    <div class="col was">
+      <h3>Раньше</h3>
+      <ul><li>Монтажёр на фрилансе — от 1500 ₽ за ролик</li><li>Или вечер в редакторе самому</li><li>Подписка на сток-видео ~1000 ₽/мес</li></ul>
+    </div>
+    <div class="col now">
+      <h3>Теперь</h3>
+      <ul><li>Текст идеи → ролик за 3–5 минут</li><li>Бесплатно, на своём компьютере</li><li>Стоки уже подключены</li></ul>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────── СЛАЙД 04 — ДЕТАЛИ ─────────── -->
+<div class="card">
+  <div class="top">
+    <span class="brand"><svg class="eye" viewBox="0 0 46 46"><circle cx="23" cy="23" r="21" fill="none" stroke="#EDF1F7" stroke-width="2"/><circle cx="23" cy="23" r="11" fill="#FFB23E"/><circle cx="23" cy="23" r="4.5" fill="#6C5CE7"/></svg><b>Наглядно</b></span>
+    <span class="num">04 / 06</span>
+  </div>
+  <h2>Детали</h2>
+  <ul class="bul">
+    <li>Работает <span class="term">локально <small>(на твоём устройстве)</small></span> — текст идеи никуда не уходит</li>
+    <li>Нужна видеокарта поновее, иначе рендер медленный</li>
+    <li>Голос озвучки — на выбор, есть русский</li>
+    <li><span class="term">Опенсорс <small>(открытый код)</small></span> — можно ставить бесплатно</li>
+  </ul>
+  <p class="techline">github.com/&lt;автор&gt;/&lt;проект&gt; · ★ 30k+ · лицензия MIT</p>
+</div>
+
+<!-- ─────────── СЛАЙД 05 — ПОЩУПАТЬ ЗА 30 СЕКУНД ─────────── -->
+<div class="card">
+  <div class="top">
+    <span class="brand"><svg class="eye" viewBox="0 0 46 46"><circle cx="23" cy="23" r="21" fill="none" stroke="#EDF1F7" stroke-width="2"/><circle cx="23" cy="23" r="11" fill="#FFB23E"/><circle cx="23" cy="23" r="4.5" fill="#6C5CE7"/></svg><b>Наглядно</b></span>
+    <span class="num">05 / 06</span>
+  </div>
+  <h2>Пощупать за 30 секунд</h2>
+  <div class="try">
+    Не хочешь ставить — открой <b>онлайн-демо</b> на сайте проекта, введи одну фразу
+    и посмотри готовый ролик. Ссылка — в Telegram, ник в шапке профиля.
+  </div>
+</div>
+
+<!-- ─────────── СЛАЙД 06 — ЧЕРЕЗ ГОД + CTA ─────────── -->
+<div class="card">
+  <div class="top">
+    <span class="brand"><svg class="eye" viewBox="0 0 46 46"><circle cx="23" cy="23" r="21" fill="none" stroke="#EDF1F7" stroke-width="2"/><circle cx="23" cy="23" r="11" fill="#FFB23E"/><circle cx="23" cy="23" r="4.5" fill="#6C5CE7"/></svg><b>Наглядно</b></span>
+    <span class="num">06 / 06</span>
+  </div>
+  <h2>Через год</h2>
+  <div class="foretell">
+    <p class="line">Через год «снять ролик» будет значить «продиктовать ролик».
+    Монтаж коротких видео станет таким же ручным трудом, как набор текста на печатной машинке.</p>
+  </div>
+  <div class="cta"><span>Полная сборка недели + ссылки «пощупать»</span><span>Telegram @naglyadno_tech →</span></div>
+</div>
+
+</body>
+</html>
