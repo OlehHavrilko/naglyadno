@@ -38,6 +38,11 @@ body{background:#05070c;font-family:var(--font-text);padding:40px;
   border:2px solid var(--accent);border-radius:999px;padding:12px 24px;font-size:26px}
 .chip small{color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-right:10px;font-size:22px}
 
+.stars{margin-top:24px;display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--font-mono);font-size:34px;font-weight:700;color:var(--accent)}
+.stars .n{color:var(--accent)}
+.stars small{font-family:var(--font-text);font-weight:400;font-size:24px;color:var(--text-muted)}
+
 
 .owner{margin-top:40px;font-family:var(--font-mono);font-size:28px;color:var(--text-muted)}
 h1{font-family:var(--font-display);font-weight:700;font-size:84px;line-height:1.05;letter-spacing:-.01em;margin-top:12px}
@@ -114,6 +119,7 @@ const MASCOT = `<svg class="eye" viewBox="0 0 52 52" fill="none">
 const CARDS = [
   {
     owner: 'reorproject', repo: 'reor',
+    stars: '8.6k',
     clarity: ['🟡', '15 сек'],
     desc: 'Заметки, которые сами связывают себя по смыслу — без тегов и папок. Спрашиваешь у своих же записей, как у чат-бота, а всё остаётся на диске.',
     icon: 'notes',
@@ -122,6 +128,7 @@ const CARDS = [
   },
   {
     owner: 'docling-project', repo: 'docling',
+    stars: '66k',
     clarity: ['🟡', '15 сек'],
     desc: 'Скармливаешь PDF, PPTX или скан — получаешь чистый структурированный текст с таблицами и картинками на местах. Библиотека для тех, кто готовит документы под нейросеть.',
     shot: 'shots-ai/docling.png', light: true,
@@ -130,6 +137,7 @@ const CARDS = [
   },
   {
     owner: 'VikParuchuri', repo: 'surya',
+    stars: '21k',
     clarity: ['🟠', 'надо вникнуть'],
     desc: 'Распознаёт текст на фото и сканах в любой раскладке страницы и почти любом языке — включая рукописный. Точнее многих платных OCR-сервисов, и работает у тебя локально.',
     shot: 'shots-ai/surya.png', light: true,
@@ -139,6 +147,7 @@ const CARDS = [
   },
   {
     owner: 'karakeep-app', repo: 'karakeep',
+    stars: '29k',
     clarity: ['🟢', '3 сек'],
     desc: 'Сохраняешь ссылку, скриншот или заметку — нейросеть сама расставляет теги и делает архивную копию страницы, чтобы ссылка не умерла. Своя память вместо платного Pocket.',
     shot: 'shots-ai/karakeep.png',
@@ -147,6 +156,7 @@ const CARDS = [
   },
   {
     owner: 'suno-ai', repo: 'bark',
+    stars: '39k',
     clarity: ['🟢', '3 сек'],
     desc: 'Генерирует речь с интонацией, вздохами и паузами — не механический голос, а что-то похожее на живую озвучку. Может и смех вставить, если попросишь текстом.',
     icon: 'speaker',
@@ -155,6 +165,7 @@ const CARDS = [
   },
   {
     owner: 'OHF-Voice', repo: 'piper1-gpl',
+    stars: '5.5k',
     clarity: ['🟡', '15 сек'],
     desc: 'Быстрая озвучка текста голосом — локально, без облака. Голоса на разных языках, включая русский; ставится одной командой.',
     icon: 'voice',
@@ -163,6 +174,7 @@ const CARDS = [
   },
   {
     owner: 'khoj-ai', repo: 'khoj',
+    stars: '37k',
     clarity: ['🟡', '15 сек'],
     desc: 'Свой ИИ-помощник, который читает твои заметки, PDF и почту и отвечает по ним — как личный секретарь, который помнит всё, что ты когда-либо записал.',
     shot: 'shots-ai/khoj.png',
@@ -171,6 +183,7 @@ const CARDS = [
   },
   {
     owner: 'All-Hands-AI', repo: 'OpenHands',
+    stars: '87k',
     clarity: ['🟠', 'надо вникнуть'],
     desc: 'Пульт для <i>ИИ-агентов (программ, которые сами выполняют задачи)</i>: ставишь задачу, агент сам правит код и запускает проверки. Поднимается на своём сервере.',
     shot: 'shots-ai/openhands.png',
@@ -179,6 +192,7 @@ const CARDS = [
   },
   {
     owner: 'ItzCrazyKns', repo: 'Vane',
+    stars: '37k',
     clarity: ['🟢', '3 сек'],
     desc: 'Поиск, который сам читает сайты и отвечает по сути, со ссылками на источники. Открытая замена платным ИИ-поисковикам; раньше проект назывался Perplexica.',
     shot: 'shots-ai/vane.png',
@@ -187,6 +201,7 @@ const CARDS = [
   },
   {
     owner: 'Mintplex-Labs', repo: 'anything-llm',
+    stars: '66k',
     clarity: ['🟡', '15 сек'],
     desc: 'Загружаешь свои документы — договоры, конспекты, переписку — и спрашиваешь по ним обычными словами. Работает с локальной моделью, файлы остаются у тебя.',
     shot: 'shots-ai/anything-llm.png',
@@ -345,6 +360,7 @@ document.body.insertAdjacentHTML('beforeend', CARDS.map((c, i) => {
       <span class="num">${String(i + 1).padStart(2, '0')} / ${String(CARDS.length).padStart(2, '0')}</span>
     </div>
     <div class="chip"><small>врубишься за</small>${c.clarity[0]} ${c.clarity[1]}</div>
+    ${c.stars ? `<div class="stars">⭐ <span class="n">${c.stars}</span><small>звёзд на GitHub</small></div>` : ''}
     <div class="owner">${c.owner} /</div>
     <h1${c.repo.length > 15 ? ' class="long"' : ''}>${c.repo}</h1>
     <p class="desc">${c.desc}</p>
