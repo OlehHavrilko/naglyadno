@@ -6,236 +6,224 @@
 <title>Наглядно — репозитории недели</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --brand-name:"Наглядно"; --brand-tg:"@naglyadno_tech";
   --bg:#0E1420; --surface:#161E2E; --surface-2:#1E2740;
   --text:#EDF1F7; --text-muted:#8A97AD;
-  --accent:#FFB23E; --accent-2:#6C5CE7; --pos:#3ED598; --neg:#F26D6D;
+  --accent:#FFB23E; --accent-2:#6C5CE7;
   --font-display:"Unbounded","Onest",system-ui,sans-serif;
   --font-text:"Onest","Inter",system-ui,sans-serif;
   --font-mono:"JetBrains Mono",ui-monospace,monospace;
+  --safe-bottom:340px;  /* интерфейс TikTok на вертикали 9:16 */
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#05070c;font-family:var(--font-text);padding:40px;display:flex;flex-wrap:wrap;gap:32px;justify-content:center;align-items:flex-start}
+body{background:#05070c;font-family:var(--font-text);padding:40px;
+  display:flex;flex-wrap:wrap;gap:32px;justify-content:center;align-items:flex-start}
 
 .card{
-  width:1080px;height:1350px;zoom:.38;
+  width:1080px;height:1920px;zoom:.30;
   background:var(--bg);color:var(--text);overflow:hidden;border-radius:28px;
-  position:relative;padding:72px;display:flex;flex-direction:column;
-  border:1px solid #1c2436;
+  position:relative;display:flex;flex-direction:column;
+  padding:96px 72px var(--safe-bottom);border:1px solid #1c2436;
 }
 
-.top{display:flex;justify-content:space-between;align-items:center}
-.brand{display:flex;align-items:center;gap:14px;color:var(--text)}
-.brand b{font-family:var(--font-display);font-weight:700;letter-spacing:-.01em;font-size:32px}
-.eye{width:46px;height:46px;flex:0 0 auto}
-.kicker{font-family:var(--font-mono);font-size:24px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted)}
+.head{display:flex;justify-content:space-between;align-items:center}
+.brand{display:flex;align-items:center;gap:16px}
+.brand b{font-family:var(--font-display);font-weight:700;font-size:34px;letter-spacing:-.01em}
+.eye{width:52px;height:52px;flex:0 0 auto}
+.num{font-family:var(--font-mono);font-size:26px;color:var(--accent);letter-spacing:.06em}
 
-.stars{margin-top:44px;align-self:flex-start;display:inline-flex;align-items:center;gap:12px;
-  background:var(--surface-2);border:2px solid var(--accent);color:var(--text);
-  font-family:var(--font-mono);font-size:30px;padding:14px 26px;border-radius:999px}
-.stars .n{font-weight:700;color:var(--accent)}
-.stars .d{color:var(--pos);font-size:24px;margin-left:6px}
+.chip{margin-top:40px;align-self:flex-start;background:var(--surface-2);
+  border:2px solid var(--accent);border-radius:999px;padding:12px 24px;font-size:26px}
+.chip small{color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-right:10px;font-size:22px}
 
-.owner{margin-top:36px;font-family:var(--font-mono);color:var(--text-muted);font-size:28px;letter-spacing:.02em}
-h1{font-family:var(--font-display);font-weight:700;font-size:76px;line-height:1.06;letter-spacing:-.01em;margin:14px 0 0}
+.metric{margin-top:44px;display:flex;align-items:baseline;gap:20px;flex-wrap:wrap}
+.metric .delta{font-family:var(--font-mono);font-weight:700;font-size:56px;color:var(--accent);letter-spacing:-.01em}
+.metric .total{font-family:var(--font-mono);font-size:28px;color:var(--text-muted)}
 
-.desc{margin-top:34px;font-size:38px;line-height:1.42;color:var(--text)}
+.owner{margin-top:40px;font-family:var(--font-mono);font-size:28px;color:var(--text-muted)}
+h1{font-family:var(--font-display);font-weight:700;font-size:84px;line-height:1.05;letter-spacing:-.01em;margin-top:12px}
+h1.long{font-size:64px}
 
-.visual{flex:1;margin-top:40px;display:flex;align-items:center;justify-content:center;min-height:260px}
-.icon-wrap{width:360px;height:360px;border-radius:50%;background:var(--surface);border:1px solid #232d44}
-.icon-wrap svg{width:100%;height:100%}
+.desc{margin-top:32px;font-size:38px;line-height:1.42}
+.desc i{font-style:normal;color:var(--text-muted)}
 
-.tags{margin-top:28px;display:flex;flex-wrap:wrap;gap:14px;padding-top:0}
-.tag{font-family:var(--font-mono);font-size:24px;color:var(--accent-2);background:rgba(108,92,231,.14);
-  border:1px solid rgba(108,92,231,.4);border-radius:999px;padding:10px 20px}
+.visual{margin-top:40px;flex:1;min-height:360px;display:flex;flex-direction:column}
+.shot{flex:1;border-radius:22px;overflow:hidden;background:var(--surface);border:1px solid #2c3650}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+.shot.light{background:#fff}
+.shot.light img{object-position:center}
+.credit{margin-top:16px;font-family:var(--font-mono);font-size:22px;color:var(--text-muted)}
 
-.footer{margin-top:36px;border-top:1px solid #2c3650;padding-top:28px;
-  display:flex;justify-content:space-between;align-items:center}
-.link{font-family:var(--font-mono);font-size:26px;color:var(--text)}
-.handle{font-family:var(--font-mono);font-size:26px;color:var(--text-muted)}
+.iconbox{flex:1;border-radius:22px;background:var(--surface);border:1px solid #2c3650;
+  display:flex;align-items:center;justify-content:center}
+.iconbox svg{width:300px;height:300px}
 
+.tags{margin-top:32px;display:flex;flex-wrap:wrap;gap:16px}
+.tag{font-size:28px;color:var(--text);background:rgba(108,92,231,.22);
+  border:1px solid var(--accent-2);border-radius:999px;padding:12px 24px}
+
+.cta{margin-top:36px;background:var(--accent-2);border-radius:20px;padding:30px 36px;
+  display:flex;justify-content:space-between;align-items:center;gap:24px}
+.cta b{font-size:32px;font-weight:600;color:#fff}
+.cta span{font-family:var(--font-mono);font-size:28px;color:#EDE9FF;white-space:nowrap}
+
+.repo{margin-top:24px;font-family:var(--font-mono);font-size:26px;color:var(--text-muted)}
+
+.safe{position:absolute;left:0;right:0;bottom:0;height:var(--safe-bottom);
+  border-top:1px dashed #2c3650;display:none}
+body.show-safe .safe{display:block}
 .slidelabel{position:fixed;left:8px;top:8px;background:#000;color:#5b6b8c;font:12px var(--font-mono);
-  padding:4px 8px;border-radius:6px;z-index:10}
+  padding:6px 10px;border-radius:6px;z-index:10}
 @media print{body{background:#fff;padding:0;gap:0}.card{zoom:1;margin:0;page-break-after:always;border-radius:0}}
 </style>
 </head>
 <body>
-<div class="slidelabel">trending-repos.html — 8 карточек «репозиторий недели». Скриншот каждой карточки = отдельный пост.</div>
+<div class="slidelabel">trending-repos.html — 8 карточек 1080×1920 (9:16). Нижние 340 px оставлены под интерфейс TikTok.</div>
+<script>
+const MASCOT = `<svg class="eye" viewBox="0 0 52 52" fill="none">
+  <g stroke="#EDF1F7" stroke-width="2.4" stroke-linecap="round">
+    <path d="M20 45v5M32 45v5"/>
+  </g>
+  <circle cx="26" cy="25" r="20" fill="none" stroke="#EDF1F7" stroke-width="2.4"/>
+  <g fill="#FFB23E">
+    <path d="M26 13 L36.4 19 L36.4 25 L26 25 Z"/>
+    <path d="M36.4 25 L36.4 31 L26 37 L26 25 Z"/>
+    <path d="M26 37 L15.6 31 L15.6 25 L26 25 Z"/>
+    <path d="M15.6 25 L15.6 19 L26 13 L26 25 Z"/>
+  </g>
+  <circle cx="26" cy="25" r="5.4" fill="#6C5CE7"/>
+</svg>`;
 
-<!-- 1 -->
-<div class="card">
-  <div class="top">
-    <span class="brand"><svg class="eye" viewBox="0 0 46 46"><circle cx="23" cy="23" r="21" fill="none" stroke="#EDF1F7" stroke-width="2"/><circle cx="23" cy="23" r="11" fill="#FFB23E"/><circle cx="23" cy="23" r="4.5" fill="#6C5CE7"/></svg><b>Наглядно</b></span>
-    <span class="kicker">Взлетает на GitHub</span>
-  </div>
-  <div class="stars">⭐ <span class="n">19,9k</span><span class="d">+4,2k за неделю</span></div>
-  <div class="owner">bilawalsidhu /</div>
-  <h1>gods-eye-view</h1>
-  <p class="desc">Симулятор шпионского спутника прямо в браузере — но данные настоящие. Фотореалистичный 3D-глобус: живые самолёты, корабли, землетрясения, камеры — всё на одной карте.</p>
-  <div class="visual"><div class="icon-wrap"><svg viewBox="0 0 360 360" fill="none">
-    <circle cx="180" cy="180" r="88" stroke="#FFB23E" stroke-width="9"/>
-    <ellipse cx="180" cy="180" rx="88" ry="30" stroke="#FFB23E" stroke-width="5" opacity=".55"/>
-    <ellipse cx="180" cy="180" rx="30" ry="88" stroke="#FFB23E" stroke-width="5" opacity=".55"/>
-    <ellipse cx="180" cy="180" rx="120" ry="42" stroke="#6C5CE7" stroke-width="6" transform="rotate(-22 180 180)"/>
-    <circle cx="279" cy="150" r="11" fill="#6C5CE7"/>
-    <rect x="291" y="140" width="22" height="8" rx="2" fill="#6C5CE7"/>
-    <rect x="257" y="140" width="22" height="8" rx="2" fill="#6C5CE7"/>
-  </svg></div></div>
-  <div class="tags"><span class="tag">#визуализация</span><span class="tag">#opendata</span><span class="tag">#3d</span></div>
-  <div class="footer"><span class="link">github.com/bilawalsidhu/gods-eye-view</span><span class="handle">@naglyadno_tech</span></div>
-</div>
+const CARDS = [
+  {
+    owner: 'bilawalsidhu', repo: 'gods-eye-view',
+    delta: '+4,2k ★ за неделю', total: 'всего 19,9k',
+    clarity: ['🟢', '3 сек'],
+    desc: 'Симулятор шпионского спутника в браузере — но данные настоящие. Живые самолёты, корабли, землетрясения и городские камеры на 3D-глобусе.',
+    shot: 'shots/gods-eye-view.png',
+    tags: ['#визуализация', '#открытые-данные', '#3D'],
+    repoline: 'github.com/bilawalsidhu/gods-eye-view · лицензия MIT',
+  },
+  {
+    owner: 'heygen-com', repo: 'hyperframes',
+    delta: '+3,9k ★ за неделю', total: 'всего 48k',
+    clarity: ['🟡', '15 сек'],
+    desc: 'Пишешь обычную веб-страницу — на выходе готовый видеофайл. Монтажная программа не нужна: анимацию собирает <i>агент (ИИ, который сам выполняет действия)</i>.',
+    icon: 'video',
+    tags: ['#видео', '#автоматизация', '#открытый-код'],
+    repoline: 'github.com/heygen-com/hyperframes · лицензия Apache-2.0',
+  },
+  {
+    owner: 'tt-a1i', repo: 'archify',
+    delta: '+13,3k ★ за неделю', total: 'всего 55,1k',
+    clarity: ['🟡', '15 сек'],
+    desc: 'Описываешь систему словами — получаешь готовую схему: архитектура, потоки данных, порядок шагов. Самый резкий рост недели среди новичков.',
+    shot: 'shots/archify.png',
+    tags: ['#схемы', '#документация', '#открытый-код'],
+    repoline: 'github.com/tt-a1i/archify · лицензия MIT',
+  },
+  {
+    owner: 'blader', repo: 'humanizer',
+    delta: '+5,8k ★ за неделю', total: 'всего 45,6k',
+    clarity: ['🟢', '3 сек'],
+    desc: 'Убирает из текста следы «написано нейросетью» — канцелярит, штампы, лишние обороты. Отдаёшь текст, получаешь версию, которая читается по-человечески.',
+    icon: 'pen',
+    tags: ['#текст', '#письмо', '#открытый-код'],
+    repoline: 'github.com/blader/humanizer · лицензия MIT',
+  },
+  {
+    owner: 'every-app', repo: 'open-seo',
+    delta: '+1,85k ★ за неделю', total: 'всего 18k',
+    clarity: ['🟡', '15 сек'],
+    desc: 'Бесплатная замена платным сервисам продвижения сайтов вроде Semrush и Ahrefs: трафик, запросы, позиции конкурентов — без подписки за десятки долларов в месяц.',
+    shot: 'shots/open-seo.png',
+    tags: ['#продвижение', '#бизнес', '#открытый-код'],
+    repoline: 'github.com/every-app/open-seo · лицензия MIT',
+  },
+  {
+    owner: 'google-research', repo: 'timesfm',
+    delta: '+3,4k ★ за неделю', total: 'всего 32,1k',
+    clarity: ['🟡', '15 сек'],
+    desc: 'Модель Google, которая продолжает числовой ряд в будущее — спрос, трафик, продажи, температуру. Своё обучать не нужно: подставил данные и получил прогноз.',
+    shot: 'shots/timesfm.png', light: true,
+    tags: ['#прогнозы', '#данные', '#Google'],
+    repoline: 'код Apache-2.0, но веса модели — только для некоммерческого применения',
+  },
+  {
+    owner: 'ChromeDevTools', repo: 'chrome-devtools-mcp',
+    delta: '+1,0k ★ за неделю', total: 'всего 51,4k',
+    clarity: ['🟠', 'надо вникнуть'],
+    desc: 'Официальный инструмент команды Chrome: позволяет ИИ управлять настоящим браузером — открывать сайты, кликать, читать ошибки — как это делает человек.',
+    icon: 'browser',
+    tags: ['#браузер', '#Google', '#открытый-код'],
+    repoline: 'github.com/ChromeDevTools/chrome-devtools-mcp · лицензия Apache-2.0',
+  },
+  {
+    owner: 'mksglu', repo: 'context-mode',
+    delta: '+935 ★ за неделю', total: 'всего 21,5k',
+    clarity: ['🟠', 'надо вникнуть'],
+    desc: 'Разгружает «рабочую память» ИИ-помощника: вместо 315 КБ сырых данных в разговор попадает 5,4 КБ, а суть сессии сохраняется между запусками.',
+    icon: 'chip',
+    tags: ['#ии-помощники', '#память', '#исходники-открыты'],
+    repoline: 'лицензия ELv2 — исходники открыты, но это не полноценный опенсорс',
+  },
+];
 
-<!-- 2 -->
-<div class="card">
-  <div class="top">
-    <span class="brand"><svg class="eye" viewBox="0 0 46 46"><circle cx="23" cy="23" r="21" fill="none" stroke="#EDF1F7" stroke-width="2"/><circle cx="23" cy="23" r="11" fill="#FFB23E"/><circle cx="23" cy="23" r="4.5" fill="#6C5CE7"/></svg><b>Наглядно</b></span>
-    <span class="kicker">Взлетает на GitHub</span>
-  </div>
-  <div class="stars">⭐ <span class="n">48k</span><span class="d">+3,9k за неделю</span></div>
-  <div class="owner">heygen-com /</div>
-  <h1>hyperframes</h1>
-  <p class="desc">Пишешь обычный HTML — на выходе готовое видео в MP4. Инструмент рендерит анимации и вёрстку в ролик без монтажной программы: удобно и людям, и ИИ-агентам.</p>
-  <div class="visual"><div class="icon-wrap"><svg viewBox="0 0 360 360" fill="none">
-    <rect x="80" y="105" width="200" height="150" rx="18" stroke="#FFB23E" stroke-width="9"/>
-    <path d="M158 148 L212 180 L158 212 Z" fill="#6C5CE7"/>
-    <path d="M106 128 L88 146 L106 164" stroke="#8A97AD" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M254 128 L272 146 L254 164" stroke="#8A97AD" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg></div></div>
-  <div class="tags"><span class="tag">#видео</span><span class="tag">#html</span><span class="tag">#automation</span></div>
-  <div class="footer"><span class="link">github.com/heygen-com/hyperframes</span><span class="handle">@naglyadno_tech</span></div>
-</div>
+const ICONS = {
+  video: `<svg viewBox="0 0 300 300" fill="none">
+    <rect x="42" y="72" width="216" height="156" rx="20" stroke="#FFB23E" stroke-width="9"/>
+    <path d="M126 116 L186 150 L126 184 Z" fill="#6C5CE7"/>
+    <path d="M74 100 L54 120 L74 140" stroke="#8A97AD" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M226 100 L246 120 L226 140" stroke="#8A97AD" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`,
+  pen: `<svg viewBox="0 0 300 300" fill="none">
+    <line x1="48" y1="96" x2="208" y2="96" stroke="#8A97AD" stroke-width="9" stroke-linecap="round"/>
+    <line x1="48" y1="140" x2="236" y2="140" stroke="#8A97AD" stroke-width="9" stroke-linecap="round"/>
+    <line x1="48" y1="184" x2="164" y2="184" stroke="#8A97AD" stroke-width="9" stroke-linecap="round"/>
+    <path d="M160 216 L212 164 L240 192 L188 244 L154 250 Z" fill="#6C5CE7"/>
+    <path d="M212 164 L240 192" stroke="#FFB23E" stroke-width="8"/>
+  </svg>`,
+  browser: `<svg viewBox="0 0 300 300" fill="none">
+    <rect x="34" y="62" width="232" height="176" rx="18" stroke="#FFB23E" stroke-width="9"/>
+    <line x1="34" y1="106" x2="266" y2="106" stroke="#FFB23E" stroke-width="6"/>
+    <circle cx="60" cy="84" r="7" fill="#FFB23E"/><circle cx="84" cy="84" r="7" fill="#FFB23E"/><circle cx="108" cy="84" r="7" fill="#FFB23E"/>
+    <path d="M118 140 L202 178 L163 191 L152 228 Z" fill="#6C5CE7"/>
+  </svg>`,
+  chip: `<svg viewBox="0 0 300 300" fill="none">
+    <rect x="90" y="90" width="120" height="120" rx="20" stroke="#FFB23E" stroke-width="9"/>
+    <circle cx="150" cy="150" r="24" stroke="#6C5CE7" stroke-width="8"/>
+    <g stroke="#8A97AD" stroke-width="8" stroke-linecap="round">
+      <path d="M120 90V58M180 90V58M120 210v32M180 210v32M90 120H58M90 180H58M210 120h32M210 180h32"/>
+    </g>
+  </svg>`,
+};
 
-<!-- 3 -->
-<div class="card">
-  <div class="top">
-    <span class="brand"><svg class="eye" viewBox="0 0 46 46"><circle cx="23" cy="23" r="21" fill="none" stroke="#EDF1F7" stroke-width="2"/><circle cx="23" cy="23" r="11" fill="#FFB23E"/><circle cx="23" cy="23" r="4.5" fill="#6C5CE7"/></svg><b>Наглядно</b></span>
-    <span class="kicker">Взлетает на GitHub</span>
-  </div>
-  <div class="stars">⭐ <span class="n">55,1k</span><span class="d">+13,3k за неделю</span></div>
-  <div class="owner">tt-a1i /</div>
-  <h1>archify</h1>
-  <p class="desc">Превращает описание системы в готовую диаграмму — архитектура, воркфлоу, потоки данных. Самая быстрорастущая новинка недели: +13 тысяч звёзд за 7 дней.</p>
-  <div class="visual"><div class="icon-wrap"><svg viewBox="0 0 360 360" fill="none">
-    <rect x="130" y="82" width="100" height="56" rx="12" stroke="#FFB23E" stroke-width="8"/>
-    <rect x="62" y="222" width="100" height="56" rx="12" stroke="#6C5CE7" stroke-width="8"/>
-    <rect x="198" y="222" width="100" height="56" rx="12" stroke="#6C5CE7" stroke-width="8"/>
-    <path d="M180 138 V178 M180 178 H112 V222 M180 178 H248 V222" stroke="#8A97AD" stroke-width="6" fill="none"/>
-  </svg></div></div>
-  <div class="tags"><span class="tag">#диаграммы</span><span class="tag">#ai-агенты</span><span class="tag">#opensource</span></div>
-  <div class="footer"><span class="link">github.com/tt-a1i/archify</span><span class="handle">@naglyadno_tech</span></div>
-</div>
-
-<!-- 4 -->
-<div class="card">
-  <div class="top">
-    <span class="brand"><svg class="eye" viewBox="0 0 46 46"><circle cx="23" cy="23" r="21" fill="none" stroke="#EDF1F7" stroke-width="2"/><circle cx="23" cy="23" r="11" fill="#FFB23E"/><circle cx="23" cy="23" r="4.5" fill="#6C5CE7"/></svg><b>Наглядно</b></span>
-    <span class="kicker">Взлетает на GitHub</span>
-  </div>
-  <div class="stars">⭐ <span class="n">45,6k</span><span class="d">+5,8k за неделю</span></div>
-  <div class="owner">blader /</div>
-  <h1>humanizer</h1>
-  <p class="desc">Убирает из текста характерные признаки «написано нейросетью» — канцелярит, штампы, лишние обороты. Загружаешь текст — получаешь версию, которая читается по-человечески.</p>
-  <div class="visual"><div class="icon-wrap"><svg viewBox="0 0 360 360" fill="none">
-    <line x1="88" y1="140" x2="248" y2="140" stroke="#8A97AD" stroke-width="8" stroke-linecap="round"/>
-    <line x1="88" y1="180" x2="272" y2="180" stroke="#8A97AD" stroke-width="8" stroke-linecap="round"/>
-    <line x1="88" y1="220" x2="200" y2="220" stroke="#8A97AD" stroke-width="8" stroke-linecap="round"/>
-    <path d="M198 250 L246 202 L272 228 L224 276 L192 282 Z" fill="#6C5CE7"/>
-    <path d="M246 202 L272 228" stroke="#FFB23E" stroke-width="6"/>
-  </svg></div></div>
-  <div class="tags"><span class="tag">#текст</span><span class="tag">#ai-агенты</span><span class="tag">#письмо</span></div>
-  <div class="footer"><span class="link">github.com/blader/humanizer</span><span class="handle">@naglyadno_tech</span></div>
-</div>
-
-<!-- 5 -->
-<div class="card">
-  <div class="top">
-    <span class="brand"><svg class="eye" viewBox="0 0 46 46"><circle cx="23" cy="23" r="21" fill="none" stroke="#EDF1F7" stroke-width="2"/><circle cx="23" cy="23" r="11" fill="#FFB23E"/><circle cx="23" cy="23" r="4.5" fill="#6C5CE7"/></svg><b>Наглядно</b></span>
-    <span class="kicker">Взлетает на GitHub</span>
-  </div>
-  <div class="stars">⭐ <span class="n">18k</span><span class="d">+1,85k за неделю</span></div>
-  <div class="owner">every-app /</div>
-  <h1>open-seo</h1>
-  <p class="desc">Бесплатная замена платным SEO-сервисам вроде Semrush и Ahrefs: анализ сайта, ключевые слова, позиции — без подписки за десятки долларов в месяц.</p>
-  <div class="visual"><div class="icon-wrap"><svg viewBox="0 0 360 360" fill="none">
-    <rect x="90" y="196" width="34" height="70" rx="6" fill="#6C5CE7"/>
-    <rect x="140" y="164" width="34" height="102" rx="6" fill="#6C5CE7"/>
-    <rect x="190" y="128" width="34" height="138" rx="6" fill="#6C5CE7"/>
-    <circle cx="252" cy="150" r="38" stroke="#FFB23E" stroke-width="9"/>
-    <line x1="279" y1="177" x2="308" y2="206" stroke="#FFB23E" stroke-width="10" stroke-linecap="round"/>
-  </svg></div></div>
-  <div class="tags"><span class="tag">#seo</span><span class="tag">#бизнес</span><span class="tag">#opensource</span></div>
-  <div class="footer"><span class="link">github.com/every-app/open-seo</span><span class="handle">@naglyadno_tech</span></div>
-</div>
-
-<!-- 6 -->
-<div class="card">
-  <div class="top">
-    <span class="brand"><svg class="eye" viewBox="0 0 46 46"><circle cx="23" cy="23" r="21" fill="none" stroke="#EDF1F7" stroke-width="2"/><circle cx="23" cy="23" r="11" fill="#FFB23E"/><circle cx="23" cy="23" r="4.5" fill="#6C5CE7"/></svg><b>Наглядно</b></span>
-    <span class="kicker">Взлетает на GitHub</span>
-  </div>
-  <div class="stars">⭐ <span class="n">32,1k</span><span class="d">+3,4k за неделю</span></div>
-  <div class="owner">google-research /</div>
-  <h1>timesfm</h1>
-  <p class="desc">Модель от Google, которая предсказывает будущее по числовому ряду — спрос, трафик, продажи, погоду. Не нужно обучать своё: подставил данные и получил прогноз.</p>
-  <div class="visual"><div class="icon-wrap"><svg viewBox="0 0 360 360" fill="none">
-    <polyline points="72,232 118,196 158,214 198,150" stroke="#FFB23E" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
-    <polyline points="198,150 236,124 272,140 300,96" stroke="#6C5CE7" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 16"/>
-    <line x1="198" y1="90" x2="198" y2="266" stroke="#8A97AD" stroke-width="4" stroke-dasharray="6 10"/>
-  </svg></div></div>
-  <div class="tags"><span class="tag">#прогнозы</span><span class="tag">#google</span><span class="tag">#данные</span></div>
-  <div class="footer"><span class="link">github.com/google-research/timesfm</span><span class="handle">@naglyadno_tech</span></div>
-</div>
-
-<!-- 7 -->
-<div class="card">
-  <div class="top">
-    <span class="brand"><svg class="eye" viewBox="0 0 46 46"><circle cx="23" cy="23" r="21" fill="none" stroke="#EDF1F7" stroke-width="2"/><circle cx="23" cy="23" r="11" fill="#FFB23E"/><circle cx="23" cy="23" r="4.5" fill="#6C5CE7"/></svg><b>Наглядно</b></span>
-    <span class="kicker">Взлетает на GitHub</span>
-  </div>
-  <div class="stars">⭐ <span class="n">51,4k</span><span class="d">+1,0k за неделю</span></div>
-  <div class="owner">ChromeDevTools /</div>
-  <h1>chrome-devtools-mcp</h1>
-  <p class="desc">Официальный инструмент команды Chrome: даёт ИИ-агентам управлять живым браузером — открывать сайты, кликать, читать консоль — как будто за рулём сидит человек.</p>
-  <div class="visual"><div class="icon-wrap"><svg viewBox="0 0 360 360" fill="none">
-    <rect x="70" y="100" width="220" height="164" rx="16" stroke="#FFB23E" stroke-width="9"/>
-    <line x1="70" y1="140" x2="290" y2="140" stroke="#FFB23E" stroke-width="6"/>
-    <circle cx="94" cy="120" r="6" fill="#FFB23E"/>
-    <circle cx="116" cy="120" r="6" fill="#FFB23E"/>
-    <circle cx="138" cy="120" r="6" fill="#FFB23E"/>
-    <path d="M150 172 L228 208 L192 220 L182 254 Z" fill="#6C5CE7"/>
-  </svg></div></div>
-  <div class="tags"><span class="tag">#браузер</span><span class="tag">#ai-агенты</span><span class="tag">#google</span></div>
-  <div class="footer"><span class="link">github.com/ChromeDevTools/chrome-devtools-mcp</span><span class="handle">@naglyadno_tech</span></div>
-</div>
-
-<!-- 8 -->
-<div class="card">
-  <div class="top">
-    <span class="brand"><svg class="eye" viewBox="0 0 46 46"><circle cx="23" cy="23" r="21" fill="none" stroke="#EDF1F7" stroke-width="2"/><circle cx="23" cy="23" r="11" fill="#FFB23E"/><circle cx="23" cy="23" r="4.5" fill="#6C5CE7"/></svg><b>Наглядно</b></span>
-    <span class="kicker">Взлетает на GitHub</span>
-  </div>
-  <div class="stars">⭐ <span class="n">21,5k</span><span class="d">+935 за неделю</span></div>
-  <div class="owner">mksglu /</div>
-  <h1>context-mode</h1>
-  <p class="desc">Учит ИИ-агентов не захламлять «оперативную память» разговора: сжимает вывод инструментов на 98% и запоминает суть сессии между запусками.</p>
-  <div class="visual"><div class="icon-wrap"><svg viewBox="0 0 360 360" fill="none">
-    <rect x="120" y="120" width="120" height="120" rx="18" stroke="#FFB23E" stroke-width="9"/>
-    <circle cx="180" cy="180" r="22" stroke="#6C5CE7" stroke-width="7"/>
-    <line x1="150" y1="120" x2="150" y2="90" stroke="#8A97AD" stroke-width="7" stroke-linecap="round"/>
-    <line x1="210" y1="120" x2="210" y2="90" stroke="#8A97AD" stroke-width="7" stroke-linecap="round"/>
-    <line x1="150" y1="270" x2="150" y2="240" stroke="#8A97AD" stroke-width="7" stroke-linecap="round"/>
-    <line x1="210" y1="270" x2="210" y2="240" stroke="#8A97AD" stroke-width="7" stroke-linecap="round"/>
-    <line x1="120" y1="150" x2="90" y2="150" stroke="#8A97AD" stroke-width="7" stroke-linecap="round"/>
-    <line x1="120" y1="210" x2="90" y2="210" stroke="#8A97AD" stroke-width="7" stroke-linecap="round"/>
-    <line x1="270" y1="150" x2="240" y2="150" stroke="#8A97AD" stroke-width="7" stroke-linecap="round"/>
-    <line x1="270" y1="210" x2="240" y2="210" stroke="#8A97AD" stroke-width="7" stroke-linecap="round"/>
-  </svg></div></div>
-  <div class="tags"><span class="tag">#ai-агенты</span><span class="tag">#mcp</span><span class="tag">#разработка</span></div>
-  <div class="footer"><span class="link">github.com/mksglu/context-mode</span><span class="handle">@naglyadno_tech</span></div>
-</div>
-
+document.body.insertAdjacentHTML('beforeend', CARDS.map((c, i) => {
+  const visual = c.shot
+    ? `<figure class="visual">
+         <div class="shot${c.light ? ' light' : ''}"><img src="${c.shot}" alt=""></div>
+         <figcaption class="credit">скриншот из репозитория проекта</figcaption>
+       </figure>`
+    : `<div class="visual"><div class="iconbox">${ICONS[c.icon]}</div></div>`;
+  return `<div class="card">
+    <div class="head">
+      <span class="brand">${MASCOT}<b>Наглядно</b></span>
+      <span class="num">${String(i + 1).padStart(2, '0')} / ${String(CARDS.length).padStart(2, '0')}</span>
+    </div>
+    <div class="chip"><small>врубишься за</small>${c.clarity[0]} ${c.clarity[1]}</div>
+    <div class="metric"><span class="delta">${c.delta}</span><span class="total">${c.total}</span></div>
+    <div class="owner">${c.owner} /</div>
+    <h1${c.repo.length > 15 ? ' class="long"' : ''}>${c.repo}</h1>
+    <p class="desc">${c.desc}</p>
+    ${visual}
+    <div class="tags">${c.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+    <div class="repo">${c.repoline}</div>
+    <div class="cta"><b>Ссылки «пощупать» — в Telegram</b><span>@naglyadno_tech →</span></div>
+    <div class="safe"></div>
+  </div>`;
+}).join(''));
+</script>
 </body>
 </html>
