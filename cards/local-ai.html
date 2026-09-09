@@ -113,44 +113,44 @@ const MASCOT = `<svg class="eye" viewBox="0 0 52 52" fill="none">
 
 const CARDS = [
   {
-    owner: 'ollama', repo: 'ollama',
-    clarity: ['🟢', '3 сек'],
-    desc: 'Запускает языковые модели прямо на твоём компьютере — без интернета и без подписки. Одна команда, и на ноутбуке работает свой чат-бот, а переписка никуда не уходит.',
-    icon: 'local',
-    tags: ['#локально', '#без-подписки', '#открытый-код'],
-    repoline: 'github.com/ollama/ollama · лицензия MIT',
-  },
-  {
-    owner: 'open-webui', repo: 'open-webui',
-    clarity: ['🟢', '3 сек'],
-    desc: 'Даёт локальной модели привычный вид: чаты, история, папки, загрузка файлов. Выглядит и работает как знакомый чат-бот, только всё лежит у тебя.',
-    shot: 'shots-ai/open-webui.png',
-    tags: ['#интерфейс', '#локально', '#свой-сервер'],
-    repoline: 'github.com/open-webui/open-webui · своя лицензия, не классический опенсорс',
-  },
-  {
-    owner: 'comfyanonymous', repo: 'ComfyUI',
+    owner: 'reorproject', repo: 'reor',
     clarity: ['🟡', '15 сек'],
-    desc: 'Генерация картинок и видео на своей видеокарте. Собираешь процесс из блоков, как схему, — и получаешь то, за что обычно платят помесячно.',
-    icon: 'image',
-    tags: ['#картинки', '#видеокарта', '#открытый-код'],
-    repoline: 'github.com/comfyanonymous/ComfyUI · лицензия GPL',
+    desc: 'Заметки, которые сами связывают себя по смыслу — без тегов и папок. Спрашиваешь у своих же записей, как у чат-бота, а всё остаётся на диске.',
+    icon: 'notes',
+    tags: ['#заметки', '#локально', '#открытый-код'],
+    repoline: 'github.com/reorproject/reor · лицензия AGPL-3.0',
   },
   {
-    owner: 'ggml-org', repo: 'whisper.cpp',
-    clarity: ['🟢', '3 сек'],
-    desc: 'Расшифровывает речь в текст прямо на устройстве — лекцию, созвон, голосовое. Написано так, что шустро работает даже на ноутбуке без мощной видеокарты.',
-    icon: 'wave',
-    tags: ['#расшифровка', '#локально', '#открытый-код'],
-    repoline: 'github.com/ggml-org/whisper.cpp · лицензия MIT',
+    owner: 'docling-project', repo: 'docling',
+    clarity: ['🟡', '15 сек'],
+    desc: 'Скармливаешь PDF, PPTX или скан — получаешь чистый структурированный текст с таблицами и картинками на местах. Библиотека для тех, кто готовит документы под нейросеть.',
+    shot: 'shots-ai/docling.png', light: true,
+    tags: ['#документы', '#открытый-код', '#для-разработчиков'],
+    repoline: 'github.com/docling-project/docling · лицензия MIT',
   },
   {
-    owner: 'immich-app', repo: 'immich',
+    owner: 'VikParuchuri', repo: 'surya',
+    clarity: ['🟠', 'надо вникнуть'],
+    desc: 'Распознаёт текст на фото и сканах в любой раскладке страницы и почти любом языке — включая рукописный. Точнее многих платных OCR-сервисов, и работает у тебя локально.',
+    icon: 'scan',
+    tags: ['#распознавание-текста', '#локально', '#открытый-код'],
+    repoline: 'github.com/VikParuchuri/surya · лицензия GPL-3.0',
+  },
+  {
+    owner: 'karakeep-app', repo: 'karakeep',
     clarity: ['🟢', '3 сек'],
-    desc: 'Своё хранилище фото на домашнем сервере: автозагрузка с телефона, поиск по лицам и объектам, альбомы. Делает то же, за что берут деньги за облако.',
-    shot: 'shots-ai/immich.png',
-    tags: ['#фото', '#свой-сервер', '#открытый-код'],
-    repoline: 'github.com/immich-app/immich · лицензия AGPL-3.0',
+    desc: 'Сохраняешь ссылку, скриншот или заметку — нейросеть сама расставляет теги и делает архивную копию страницы, чтобы ссылка не умерла. Своя память вместо платного Pocket.',
+    shot: 'shots-ai/karakeep.png',
+    tags: ['#закладки', '#свой-сервер', '#открытый-код'],
+    repoline: 'github.com/karakeep-app/karakeep · лицензия AGPL-3.0',
+  },
+  {
+    owner: 'suno-ai', repo: 'bark',
+    clarity: ['🟢', '3 сек'],
+    desc: 'Генерирует речь с интонацией, вздохами и паузами — не механический голос, а что-то похожее на живую озвучку. Может и смех вставить, если попросишь текстом.',
+    icon: 'speaker',
+    tags: ['#озвучка', '#открытый-код', '#генерация-звука'],
+    repoline: 'github.com/suno-ai/bark · лицензия MIT',
   },
   {
     owner: 'OHF-Voice', repo: 'piper1-gpl',
@@ -161,12 +161,12 @@ const CARDS = [
     repoline: 'github.com/OHF-Voice/piper1-gpl · лицензия GPL',
   },
   {
-    owner: 'n8n-io', repo: 'n8n',
+    owner: 'khoj-ai', repo: 'khoj',
     clarity: ['🟡', '15 сек'],
-    desc: 'Связывает сервисы между собой без программирования: письмо пришло — задача создалась, файл появился — сообщение ушло. Можно поднять у себя и не платить за облако.',
-    shot: 'shots-ai/n8n.png',
-    tags: ['#автоматизация', '#свой-сервер', '#без-кода'],
-    repoline: 'github.com/n8n-io/n8n · лицензия fair-code, не классический опенсорс',
+    desc: 'Свой ИИ-помощник, который читает твои заметки, PDF и почту и отвечает по ним — как личный секретарь, который помнит всё, что ты когда-либо записал.',
+    icon: 'brain',
+    tags: ['#ии-помощник', '#локально', '#открытый-код'],
+    repoline: 'github.com/khoj-ai/khoj · лицензия AGPL-3.0',
   },
   {
     owner: 'All-Hands-AI', repo: 'OpenHands',
@@ -195,6 +195,38 @@ const CARDS = [
 ];
 
 const ICONS = {
+  notes: `<svg viewBox="0 0 300 300" fill="none">
+    <rect x="70" y="46" width="160" height="208" rx="14" stroke="#FFB23E" stroke-width="9"/>
+    <g stroke="#8A97AD" stroke-width="7" stroke-linecap="round">
+      <path d="M96 96h108M96 126h108M96 156h74"/>
+    </g>
+    <circle cx="112" cy="200" r="8" fill="#6C5CE7"/>
+    <circle cx="150" cy="212" r="8" fill="#6C5CE7"/>
+    <circle cx="186" cy="196" r="8" fill="#6C5CE7"/>
+    <path d="M112 200L150 212L186 196" stroke="#6C5CE7" stroke-width="6" fill="none"/>
+  </svg>`,
+  scan: `<svg viewBox="0 0 300 300" fill="none">
+    <path d="M60 92V64a12 12 0 0112-12h28M240 92V64a12 12 0 00-12-12h-28M60 208v28a12 12 0 0012 12h28M240 208v28a12 12 0 01-12 12h-28" stroke="#FFB23E" stroke-width="10" stroke-linecap="round"/>
+    <line x1="66" y1="150" x2="234" y2="150" stroke="#6C5CE7" stroke-width="8" stroke-linecap="round"/>
+    <g stroke="#8A97AD" stroke-width="7" stroke-linecap="round">
+      <path d="M96 110h60M96 190h108"/>
+    </g>
+  </svg>`,
+  speaker: `<svg viewBox="0 0 300 300" fill="none">
+    <path d="M64 118h38l52-40v148l-52-40H64z" fill="#FFB23E"/>
+    <path d="M178 122c10 12 10 44 0 56" stroke="#6C5CE7" stroke-width="9" stroke-linecap="round" fill="none"/>
+    <path d="M204 100c20 24 20 76 0 100" stroke="#6C5CE7" stroke-width="9" stroke-linecap="round" fill="none"/>
+    <path d="M228 78c30 36 30 108 0 144" stroke="#8A97AD" stroke-width="8" stroke-linecap="round" fill="none"/>
+  </svg>`,
+  brain: `<svg viewBox="0 0 300 300" fill="none">
+    <path d="M118 66c-30 0-52 22-52 50 0 8 2 16 5 22-14 8-23 24-23 42 0 26 21 46 47 46h6" stroke="#FFB23E" stroke-width="9" stroke-linecap="round" fill="none"/>
+    <path d="M182 66c30 0 52 22 52 50 0 8-2 16-5 22 14 8 23 24 23 42 0 26-21 46-47 46h-6" stroke="#FFB23E" stroke-width="9" stroke-linecap="round" fill="none"/>
+    <line x1="150" y1="60" x2="150" y2="230" stroke="#FFB23E" stroke-width="9" stroke-linecap="round"/>
+    <circle cx="118" cy="120" r="9" fill="#6C5CE7"/>
+    <circle cx="182" cy="150" r="9" fill="#6C5CE7"/>
+    <circle cx="130" cy="190" r="9" fill="#6C5CE7"/>
+  </svg>`,
+
   local: `<svg viewBox="0 0 300 300" fill="none">
     <rect x="40" y="66" width="220" height="150" rx="16" stroke="#FFB23E" stroke-width="9"/>
     <path d="M118 216h64l10 30h-84z" fill="#FFB23E"/>
@@ -282,16 +314,16 @@ const COVER = `<div class="card cover">
     <span class="rubric">Топ-подборка</span>
   </div>
   <div class="hero">
-    <span class="big">10</span><span class="unit">штук,</span>
+    <span class="big">10</span><span class="unit">находок,</span>
   </div>
-  <h2>которые работают дома вместо платных подписок</h2>
-  <p class="sub"><b>Свой чат-бот без интернета</b>, генерация картинок на своей видеокарте,
-     хранилище фото вместо облака и поиск вместо платной подписки.</p>
+  <h2>про которые ты ещё не слышал</h2>
+  <p class="sub"><b>Заметки, которые думают вместе с тобой</b>, ИИ, который сам архивирует
+     закладки, локальный OCR точнее платных сервисов — без Ollama и ComfyUI, это ты и так знаешь.</p>
   <div class="grid">
-    <div><img src="shots-ai/open-webui.png" alt=""></div>
-    <div><img src="shots-ai/immich.png" alt=""></div>
+    <div><img src="shots-ai/karakeep.png" alt=""></div>
+    <div><img src="shots-ai/docling.png" alt=""></div>
     <div><img src="shots-ai/vane.png" alt=""></div>
-    <div><img src="shots-ai/n8n.png" alt=""></div>
+    <div><img src="shots-ai/anything-llm.png" alt=""></div>
   </div>
   <div class="swipe"><b>Листай — и сохрани, чтобы не потерять</b><span>→</span></div>
   <div class="safe"></div>
