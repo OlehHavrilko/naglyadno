@@ -132,7 +132,8 @@ const CARDS = [
     owner: 'VikParuchuri', repo: 'surya',
     clarity: ['🟠', 'надо вникнуть'],
     desc: 'Распознаёт текст на фото и сканах в любой раскладке страницы и почти любом языке — включая рукописный. Точнее многих платных OCR-сервисов, и работает у тебя локально.',
-    icon: 'scan',
+    shot: 'shots-ai/surya.png', light: true,
+    credit: 'пример разметки: своя статья Google на arXiv, публикация разрешена',
     tags: ['#распознавание-текста', '#локально', '#открытый-код'],
     repoline: 'github.com/VikParuchuri/surya · лицензия GPL-3.0',
   },
@@ -164,7 +165,7 @@ const CARDS = [
     owner: 'khoj-ai', repo: 'khoj',
     clarity: ['🟡', '15 сек'],
     desc: 'Свой ИИ-помощник, который читает твои заметки, PDF и почту и отвечает по ним — как личный секретарь, который помнит всё, что ты когда-либо записал.',
-    icon: 'brain',
+    shot: 'shots-ai/khoj.png',
     tags: ['#ии-помощник', '#локально', '#открытый-код'],
     repoline: 'github.com/khoj-ai/khoj · лицензия AGPL-3.0',
   },
@@ -172,7 +173,7 @@ const CARDS = [
     owner: 'All-Hands-AI', repo: 'OpenHands',
     clarity: ['🟠', 'надо вникнуть'],
     desc: 'Пульт для <i>ИИ-агентов (программ, которые сами выполняют задачи)</i>: ставишь задачу, агент сам правит код и запускает проверки. Поднимается на своём сервере.',
-    icon: 'agent',
+    shot: 'shots-ai/openhands.png',
     tags: ['#агенты', '#свой-сервер', '#открытый-код'],
     repoline: 'github.com/All-Hands-AI/OpenHands · лицензия MIT',
   },
@@ -335,7 +336,7 @@ document.body.insertAdjacentHTML('beforeend', CARDS.map((c, i) => {
   const visual = c.shot
     ? `<figure class="visual">
          <div class="shot${c.light ? ' light' : ''}"><img src="${c.shot}" alt=""></div>
-         <figcaption class="credit">скриншот из репозитория проекта</figcaption>
+         <figcaption class="credit">${c.credit || 'скриншот из репозитория проекта'}</figcaption>
        </figure>`
     : `<div class="visual"><div class="iconbox">${ICONS[c.icon]}</div></div>`;
   return `<div class="card">
