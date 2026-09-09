@@ -38,7 +38,7 @@ body{background:#05070c;font-family:var(--font-text);padding:40px;
   border:2px solid var(--accent);border-radius:999px;padding:12px 24px;font-size:26px}
 .chip small{color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-right:10px;font-size:22px}
 
-.metric{margin-top:44px;display:flex;align-items:baseline;gap:20px;flex-wrap:wrap}
+.metric{margin-top:44px;display:flex;align-items:baseline;gap:20px;flex-wrap:wrap;min-height:66px}
 .metric .delta{font-family:var(--font-mono);font-weight:700;font-size:56px;color:var(--accent);letter-spacing:-.01em}
 .metric .total{font-family:var(--font-mono);font-size:28px;color:var(--text-muted)}
 
@@ -107,6 +107,15 @@ const CARDS = [
     repoline: 'github.com/bilawalsidhu/gods-eye-view · лицензия MIT',
   },
   {
+    owner: 'webadderallorg', repo: 'Recordly',
+    delta: '+2,4k ★ за неделю',
+    clarity: ['🟢', '3 сек'],
+    desc: 'Бесплатная запись экрана с автоматическим приближением, плавным курсором и врезкой с камеры. Ставится на Windows, macOS и Linux; авторы честно предупреждают, что проект молодой.',
+    shot: 'shots/recordly.png',
+    tags: ['#запись-экрана', '#видео', '#открытый-код'],
+    repoline: 'github.com/webadderallorg/Recordly · лицензия AGPL-3.0',
+  },
+  {
     owner: 'heygen-com', repo: 'hyperframes',
     delta: '+3,9k ★ за неделю', total: 'всего 48k',
     clarity: ['🟡', '15 сек'],
@@ -123,6 +132,15 @@ const CARDS = [
     shot: 'shots/archify.png',
     tags: ['#схемы', '#документация', '#открытый-код'],
     repoline: 'github.com/tt-a1i/archify · лицензия MIT',
+  },
+  {
+    owner: 'microsoft', repo: 'markitdown',
+    delta: '+2,9k ★ за неделю',
+    clarity: ['🟡', '15 сек'],
+    desc: 'Утилита Microsoft, которая превращает любой файл — документ, таблицу, презентацию, PDF, картинку — в чистый текст, понятный нейросети. Вёрстка и заголовки не теряются.',
+    icon: 'doc',
+    tags: ['#документы', '#Microsoft', '#открытый-код'],
+    repoline: 'github.com/microsoft/markitdown · лицензия MIT',
   },
   {
     owner: 'blader', repo: 'humanizer',
@@ -191,6 +209,19 @@ const ICONS = {
     <circle cx="60" cy="84" r="7" fill="#FFB23E"/><circle cx="84" cy="84" r="7" fill="#FFB23E"/><circle cx="108" cy="84" r="7" fill="#FFB23E"/>
     <path d="M118 140 L202 178 L163 191 L152 228 Z" fill="#6C5CE7"/>
   </svg>`,
+  doc: `<svg viewBox="0 0 300 300" fill="none">
+    <path d="M74 46h84l40 40v76" stroke="#FFB23E" stroke-width="9" stroke-linejoin="round"/>
+    <path d="M74 46v130" stroke="#FFB23E" stroke-width="9"/>
+    <path d="M156 46v42h42" stroke="#FFB23E" stroke-width="9" stroke-linejoin="round"/>
+    <g stroke="#8A97AD" stroke-width="8" stroke-linecap="round">
+      <path d="M98 96h38M98 126h72M98 156h72"/>
+    </g>
+    <rect x="86" y="186" width="128" height="72" rx="12" fill="#6C5CE7"/>
+    <g stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M104 240v-36l16 20 16-20v36"/>
+      <path d="M164 204v36M164 240l-14-16M164 240l14-16"/>
+    </g>
+  </svg>`,
   chip: `<svg viewBox="0 0 300 300" fill="none">
     <rect x="90" y="90" width="120" height="120" rx="20" stroke="#FFB23E" stroke-width="9"/>
     <circle cx="150" cy="150" r="24" stroke="#6C5CE7" stroke-width="8"/>
@@ -213,7 +244,7 @@ document.body.insertAdjacentHTML('beforeend', CARDS.map((c, i) => {
       <span class="num">${String(i + 1).padStart(2, '0')} / ${String(CARDS.length).padStart(2, '0')}</span>
     </div>
     <div class="chip"><small>врубишься за</small>${c.clarity[0]} ${c.clarity[1]}</div>
-    <div class="metric"><span class="delta">${c.delta}</span><span class="total">${c.total}</span></div>
+    <div class="metric"><span class="delta">${c.delta}</span>${c.total ? `<span class="total">${c.total}</span>` : ''}</div>
     <div class="owner">${c.owner} /</div>
     <h1${c.repo.length > 15 ? ' class="long"' : ''}>${c.repo}</h1>
     <p class="desc">${c.desc}</p>
