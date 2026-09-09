@@ -71,6 +71,24 @@ h1.long{font-size:64px}
 
 .repo{margin-top:24px;font-family:var(--font-mono);font-size:26px;color:var(--text-muted)}
 
+/* ── Обложка поста ── */
+.cover .rubric{font-family:var(--font-mono);font-size:26px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--accent)}
+.cover .hero{margin-top:56px;display:flex;align-items:baseline;gap:44px}
+.cover .big{font-family:var(--font-display);font-weight:700;font-size:210px;line-height:.9;
+  color:var(--accent);letter-spacing:-.04em}
+.cover .unit{font-family:var(--font-display);font-weight:700;font-size:92px;letter-spacing:-.01em}
+.cover h2{margin-top:16px;font-family:var(--font-display);font-weight:700;font-size:82px;
+  line-height:1.06;letter-spacing:-.01em}
+.cover .sub{margin-top:40px;font-size:38px;line-height:1.4;color:var(--text-muted)}
+.cover .sub b{color:var(--text);font-weight:500}
+.grid{margin-top:auto;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid div{height:250px;border-radius:18px;overflow:hidden;border:1px solid #2c3650;background:var(--surface)}
+.grid img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+.swipe{margin-top:40px;display:flex;justify-content:space-between;align-items:center}
+.swipe b{font-size:38px;font-weight:600}
+.swipe span{font-family:var(--font-mono);font-size:30px;color:var(--accent)}
+
 .safe{position:absolute;left:0;right:0;bottom:0;height:var(--safe-bottom);
   border-top:1px dashed #2c3650;display:none}
 body.show-safe .safe{display:block}
@@ -230,6 +248,29 @@ const ICONS = {
     </g>
   </svg>`,
 };
+
+const COVER = `<div class="card cover">
+  <div class="head">
+    <span class="brand">${MASCOT}<b>Наглядно</b></span>
+    <span class="rubric">Топ-подборка</span>
+  </div>
+  <div class="hero">
+    <span class="big">10</span><span class="unit">проектов,</span>
+  </div>
+  <h2>которые взлетели на GitHub за неделю</h2>
+  <p class="sub">От <b>+935</b> до <b>+13 300</b> звёзд за семь дней. Спутник-шпион в браузере,
+     запись экрана, предсказатель будущего — и всё это бесплатно.</p>
+  <div class="grid">
+    <div><img src="shots/gods-eye-view.png" alt=""></div>
+    <div><img src="shots/archify.png" alt=""></div>
+    <div><img src="shots/recordly.png" alt=""></div>
+    <div><img src="shots/open-seo.png" alt=""></div>
+  </div>
+  <div class="swipe"><b>Листай — и сохрани, чтобы не потерять</b><span>→</span></div>
+  <div class="safe"></div>
+</div>`;
+
+document.body.insertAdjacentHTML('beforeend', COVER);
 
 document.body.insertAdjacentHTML('beforeend', CARDS.map((c, i) => {
   const visual = c.shot
