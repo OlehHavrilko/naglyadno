@@ -38,9 +38,6 @@ body{background:#05070c;font-family:var(--font-text);padding:40px;
   border:2px solid var(--accent);border-radius:999px;padding:12px 24px;font-size:26px}
 .chip small{color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-right:10px;font-size:22px}
 
-.metric{margin-top:44px;display:flex;align-items:baseline;gap:20px;flex-wrap:wrap;min-height:66px}
-.metric .delta{font-family:var(--font-mono);font-weight:700;font-size:56px;color:var(--accent);letter-spacing:-.01em}
-.metric .total{font-family:var(--font-mono);font-size:28px;color:var(--text-muted)}
 
 .owner{margin-top:40px;font-family:var(--font-mono);font-size:28px;color:var(--text-muted)}
 h1{font-family:var(--font-display);font-weight:700;font-size:84px;line-height:1.05;letter-spacing:-.01em;margin-top:12px}
@@ -98,7 +95,7 @@ body.show-safe .safe{display:block}
 </style>
 </head>
 <body>
-<div class="slidelabel">trending-repos.html — 8 карточек 1080×1920 (9:16). Нижние 340 px оставлены под интерфейс TikTok.</div>
+<div class="slidelabel">trending-repos.html — обложка + 10 карточек 1080×1920 (9:16). Нижние 340 px оставлены под интерфейс TikTok.</div>
 <script>
 const MASCOT = `<svg class="eye" viewBox="0 0 52 52" fill="none">
   <g stroke="#EDF1F7" stroke-width="2.4" stroke-linecap="round">
@@ -117,7 +114,6 @@ const MASCOT = `<svg class="eye" viewBox="0 0 52 52" fill="none">
 const CARDS = [
   {
     owner: 'bilawalsidhu', repo: 'gods-eye-view',
-    delta: '+4,2k ★ за неделю', total: 'всего 19,9k',
     clarity: ['🟢', '3 сек'],
     desc: 'Симулятор шпионского спутника в браузере — но данные настоящие. Живые самолёты, корабли, землетрясения и городские камеры на 3D-глобусе.',
     shot: 'shots/gods-eye-view.png',
@@ -126,7 +122,6 @@ const CARDS = [
   },
   {
     owner: 'webadderallorg', repo: 'Recordly',
-    delta: '+2,4k ★ за неделю',
     clarity: ['🟢', '3 сек'],
     desc: 'Бесплатная запись экрана с автоматическим приближением, плавным курсором и врезкой с камеры. Ставится на Windows, macOS и Linux; авторы честно предупреждают, что проект молодой.',
     shot: 'shots/recordly.png',
@@ -135,7 +130,6 @@ const CARDS = [
   },
   {
     owner: 'heygen-com', repo: 'hyperframes',
-    delta: '+3,9k ★ за неделю', total: 'всего 48k',
     clarity: ['🟡', '15 сек'],
     desc: 'Пишешь обычную веб-страницу — на выходе готовый видеофайл. Монтажная программа не нужна: анимацию собирает <i>агент (ИИ, который сам выполняет действия)</i>.',
     icon: 'video',
@@ -144,7 +138,6 @@ const CARDS = [
   },
   {
     owner: 'tt-a1i', repo: 'archify',
-    delta: '+13,3k ★ за неделю', total: 'всего 55,1k',
     clarity: ['🟡', '15 сек'],
     desc: 'Описываешь систему словами — получаешь готовую схему: архитектура, потоки данных, порядок шагов. Работает как навык внутри Claude Code, Cursor или Codex — сам по себе не запустится, нужен один из этих ИИ-агентов.',
     shot: 'shots/archify.png',
@@ -153,7 +146,6 @@ const CARDS = [
   },
   {
     owner: 'microsoft', repo: 'markitdown',
-    delta: '+2,9k ★ за неделю',
     clarity: ['🟡', '15 сек'],
     desc: 'Утилита Microsoft, которая превращает любой файл — документ, таблицу, презентацию, PDF, картинку — в чистый текст, понятный нейросети. Вёрстка и заголовки не теряются.',
     icon: 'doc',
@@ -162,7 +154,6 @@ const CARDS = [
   },
   {
     owner: 'blader', repo: 'humanizer',
-    delta: '+5,8k ★ за неделю', total: 'всего 45,6k',
     clarity: ['🟢', '3 сек'],
     desc: 'Убирает из текста следы «написано нейросетью» — канцелярит, штампы, лишние обороты. Тоже навык для Claude Code / Codex / Cursor, а не отдельная программа или сайт.',
     icon: 'pen',
@@ -171,7 +162,6 @@ const CARDS = [
   },
   {
     owner: 'every-app', repo: 'open-seo',
-    delta: '+1,85k ★ за неделю', total: 'всего 18k',
     clarity: ['🟡', '15 сек'],
     desc: 'Открытая альтернатива Semrush и Ahrefs: трафик, запросы, позиции конкурентов. Без абонплаты — но не совсем бесплатно: нужен платный API-ключ DataForSEO, платишь по факту запросов, а не 20 000 ₽/мес подписки.',
     shot: 'shots/open-seo.png',
@@ -180,7 +170,6 @@ const CARDS = [
   },
   {
     owner: 'google-research', repo: 'timesfm',
-    delta: '+3,4k ★ за неделю', total: 'всего 32,1k',
     clarity: ['🟡', '15 сек'],
     desc: 'Модель Google, которая продолжает числовой ряд в будущее — спрос, трафик, продажи, температуру. Своё обучать не нужно: подставил данные и получил прогноз.',
     shot: 'shots/timesfm.png', light: true,
@@ -189,7 +178,6 @@ const CARDS = [
   },
   {
     owner: 'ChromeDevTools', repo: 'chrome-devtools-mcp',
-    delta: '+1,0k ★ за неделю', total: 'всего 51,4k',
     clarity: ['🟠', 'надо вникнуть'],
     desc: 'Официальный инструмент команды Chrome: позволяет ИИ управлять настоящим браузером — открывать сайты, кликать, читать ошибки — как это делает человек.',
     icon: 'browser',
@@ -198,7 +186,6 @@ const CARDS = [
   },
   {
     owner: 'mksglu', repo: 'context-mode',
-    delta: '+935 ★ за неделю', total: 'всего 21,5k',
     clarity: ['🟠', 'надо вникнуть'],
     desc: 'Разгружает «рабочую память» ИИ-помощника: например, скриншот страницы с 56 КБ ужимается до 300 байт, а суть сессии сохраняется между запусками.',
     icon: 'chip',
@@ -258,8 +245,8 @@ const COVER = `<div class="card cover">
     <span class="big">10</span><span class="unit">проектов,</span>
   </div>
   <h2>которые взлетели на GitHub за неделю</h2>
-  <p class="sub">От <b>+935</b> до <b>+13 300</b> звёзд за семь дней. Спутник-шпион в браузере,
-     запись экрана, предсказатель будущего — и ещё семь находок.</p>
+  <p class="sub"><b>Спутник-шпион в браузере</b>, запись экрана, предсказатель будущего —
+     и ещё семь находок, которые за неделю собрали больше всего звёзд.</p>
   <div class="grid">
     <div><img src="shots/gods-eye-view.png" alt=""></div>
     <div><img src="shots/archify.png" alt=""></div>
@@ -285,7 +272,6 @@ document.body.insertAdjacentHTML('beforeend', CARDS.map((c, i) => {
       <span class="num">${String(i + 1).padStart(2, '0')} / ${String(CARDS.length).padStart(2, '0')}</span>
     </div>
     <div class="chip"><small>врубишься за</small>${c.clarity[0]} ${c.clarity[1]}</div>
-    <div class="metric"><span class="delta">${c.delta}</span>${c.total ? `<span class="total">${c.total}</span>` : ''}</div>
     <div class="owner">${c.owner} /</div>
     <h1${c.repo.length > 15 ? ' class="long"' : ''}>${c.repo}</h1>
     <p class="desc">${c.desc}</p>

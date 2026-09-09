@@ -102,20 +102,26 @@ export async function publishToChannel(files, text) {
   const chat_id = config.telegram.channelId;
   if (!chat_id) throw new Error('TELEGRAM_CHANNEL_ID не задан');
 
-  for (let start = 0; start < files.length; start += 10) {
-    const chunk = files.slice(start, start + 10);
+  // Альбом принимает 2–10 медиа. Режем на равные части, иначе на 11 карточках
+  // получится хвост из одной штуки, а альбом из одного элемента Telegram отклонит.
+  const parts = Math.ceil(files.length / 10);
+  const size = Math.ceil(files.length / parts);
+  const chunks = [];
+  for (let i = 0; i < files.length; i += size) chunks.push(files.slice(i, i + size));
+
+  for (const [n, chunk] of chunks.entries()) {
     const form = new FormData();
     form.set('chat_id', chat_id);
     const media = chunk.map((f, i) => {
       const name = `p${i}`;
-      form.set(name, new Blob([readFileSync(f)], { type: 'image/png' }), `${start + i + 1}.png`);
+      form.set(name, new Blob([readFileSync(f)], { type: 'image/png' }), `${n * size + i + 1}.png`);
       return { type: 'photo', media: `attach://${name}` };
     });
     form.set('media', JSON.stringify(media));
     const r = await fetch(api('sendMediaGroup'), { method: 'POST', body: form });
     const d = await r.json();
     if (!d.ok) throw new Error(`sendMediaGroup: ${JSON.stringify(d)}`);
-    log.info(`альбом ${start / 10 + 1}: ${chunk.length} шт. опубликовано`);
+    log.info(`альбом ${n + 1} из ${chunks.length}: ${chunk.length} шт. опубликовано`);
   }
 
   if (text) {
