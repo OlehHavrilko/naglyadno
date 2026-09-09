@@ -49,7 +49,7 @@ h1.long{font-size:64px}
 .desc{margin-top:32px;font-size:38px;line-height:1.42}
 .desc i{font-style:normal;color:var(--text-muted)}
 
-.visual{margin-top:40px;flex:1;min-height:360px;display:flex;flex-direction:column}
+.visual{margin-top:40px;flex:1;min-height:320px;display:flex;flex-direction:column}
 .shot{flex:1;border-radius:22px;overflow:hidden;background:var(--surface);border:1px solid #2c3650}
 .shot img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
 .shot.light{background:#fff}
@@ -146,7 +146,7 @@ const CARDS = [
     owner: 'tt-a1i', repo: 'archify',
     delta: '+13,3k ★ за неделю', total: 'всего 55,1k',
     clarity: ['🟡', '15 сек'],
-    desc: 'Описываешь систему словами — получаешь готовую схему: архитектура, потоки данных, порядок шагов. Самый резкий рост недели среди новичков.',
+    desc: 'Описываешь систему словами — получаешь готовую схему: архитектура, потоки данных, порядок шагов. Работает как навык внутри Claude Code, Cursor или Codex — сам по себе не запустится, нужен один из этих ИИ-агентов.',
     shot: 'shots/archify.png',
     tags: ['#схемы', '#документация', '#открытый-код'],
     repoline: 'github.com/tt-a1i/archify · лицензия MIT',
@@ -164,7 +164,7 @@ const CARDS = [
     owner: 'blader', repo: 'humanizer',
     delta: '+5,8k ★ за неделю', total: 'всего 45,6k',
     clarity: ['🟢', '3 сек'],
-    desc: 'Убирает из текста следы «написано нейросетью» — канцелярит, штампы, лишние обороты. Отдаёшь текст, получаешь версию, которая читается по-человечески.',
+    desc: 'Убирает из текста следы «написано нейросетью» — канцелярит, штампы, лишние обороты. Тоже навык для Claude Code / Codex / Cursor, а не отдельная программа или сайт.',
     icon: 'pen',
     tags: ['#текст', '#письмо', '#открытый-код'],
     repoline: 'github.com/blader/humanizer · лицензия MIT',
@@ -173,7 +173,7 @@ const CARDS = [
     owner: 'every-app', repo: 'open-seo',
     delta: '+1,85k ★ за неделю', total: 'всего 18k',
     clarity: ['🟡', '15 сек'],
-    desc: 'Бесплатная замена платным сервисам продвижения сайтов вроде Semrush и Ahrefs: трафик, запросы, позиции конкурентов — без подписки за десятки долларов в месяц.',
+    desc: 'Открытая альтернатива Semrush и Ahrefs: трафик, запросы, позиции конкурентов. Без абонплаты — но не совсем бесплатно: нужен платный API-ключ DataForSEO, платишь по факту запросов, а не 20 000 ₽/мес подписки.',
     shot: 'shots/open-seo.png',
     tags: ['#продвижение', '#бизнес', '#открытый-код'],
     repoline: 'github.com/every-app/open-seo · лицензия MIT',
@@ -200,7 +200,7 @@ const CARDS = [
     owner: 'mksglu', repo: 'context-mode',
     delta: '+935 ★ за неделю', total: 'всего 21,5k',
     clarity: ['🟠', 'надо вникнуть'],
-    desc: 'Разгружает «рабочую память» ИИ-помощника: вместо 315 КБ сырых данных в разговор попадает 5,4 КБ, а суть сессии сохраняется между запусками.',
+    desc: 'Разгружает «рабочую память» ИИ-помощника: например, скриншот страницы с 56 КБ ужимается до 300 байт, а суть сессии сохраняется между запусками.',
     icon: 'chip',
     tags: ['#ии-помощники', '#память', '#исходники-открыты'],
     repoline: 'лицензия ELv2 — исходники открыты, но это не полноценный опенсорс',
@@ -259,7 +259,7 @@ const COVER = `<div class="card cover">
   </div>
   <h2>которые взлетели на GitHub за неделю</h2>
   <p class="sub">От <b>+935</b> до <b>+13 300</b> звёзд за семь дней. Спутник-шпион в браузере,
-     запись экрана, предсказатель будущего — и всё это бесплатно.</p>
+     запись экрана, предсказатель будущего — и ещё семь находок.</p>
   <div class="grid">
     <div><img src="shots/gods-eye-view.png" alt=""></div>
     <div><img src="shots/archify.png" alt=""></div>
