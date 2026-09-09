@@ -57,6 +57,7 @@ export const config = {
   telegram: {
     botToken: env.TELEGRAM_BOT_TOKEN || '',
     chatId: env.TELEGRAM_CHAT_ID || '',
+    channelId: env.TELEGRAM_CHANNEL_ID || '',
     autoPublish: String(env.AUTO_PUBLISH || 'false') === 'true',
     approvalTimeoutMin: Number(env.APPROVAL_TIMEOUT_MIN || 180),
   },

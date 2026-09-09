@@ -86,6 +86,44 @@ export async function waitForDecision(itemId, timeoutMin = config.telegram.appro
   return 'timeout';
 }
 
+/**
+ * Публикация в канал от имени бота. Бот должен быть админом канала
+ * с правом «Публикация сообщений».
+ *
+ * Telegram не принимает больше 10 медиа в одном альбоме, поэтому набор
+ * режется на части: 11 карточек уедут двумя альбомами, а не потеряют последнюю.
+ * Подпись к альбому ограничена 1024 символами, поэтому текст поста уходит
+ * отдельным сообщением следом.
+ *
+ * @param {string[]} files  пути к PNG в порядке публикации
+ * @param {string} text     текст поста (без лимита альбома)
+ */
+export async function publishToChannel(files, text) {
+  const chat_id = config.telegram.channelId;
+  if (!chat_id) throw new Error('TELEGRAM_CHANNEL_ID не задан');
+
+  for (let start = 0; start < files.length; start += 10) {
+    const chunk = files.slice(start, start + 10);
+    const form = new FormData();
+    form.set('chat_id', chat_id);
+    const media = chunk.map((f, i) => {
+      const name = `p${i}`;
+      form.set(name, new Blob([readFileSync(f)], { type: 'image/png' }), `${start + i + 1}.png`);
+      return { type: 'photo', media: `attach://${name}` };
+    });
+    form.set('media', JSON.stringify(media));
+    const r = await fetch(api('sendMediaGroup'), { method: 'POST', body: form });
+    const d = await r.json();
+    if (!d.ok) throw new Error(`sendMediaGroup: ${JSON.stringify(d)}`);
+    log.info(`альбом ${start / 10 + 1}: ${chunk.length} шт. опубликовано`);
+  }
+
+  if (text) {
+    await tg('sendMessage', { chat_id, text, disable_web_page_preview: true });
+  }
+  log.ok(`опубликовано в ${chat_id}: ${files.length} карточек`);
+}
+
 export async function notify(text) {
   if (!telegramReady()) return;
   await tg('sendMessage', { chat_id: config.telegram.chatId, text }).catch((e) => log.warn(e.message));
