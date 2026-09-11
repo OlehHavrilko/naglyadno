@@ -5,7 +5,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --brand-name:"Наглядно"; --brand-tg:"@naglyadno_tech";
+  --brand-name:"GitSight"; --brand-tg:"@gitsight_tech";
   --bg:#0E1420; --surface:#161E2E; --surface-2:#1E2740;
   --text:#EDF1F7; --text-muted:#8A97AD;
   --accent:#FFB23E; --accent-2:#6C5CE7; --pos:#3ED598; --neg:#F26D6D;
@@ -88,7 +88,7 @@ function head(meta, slide) {
     ? '<div class="badge"><span class="clarity"><small>врубишься за</small><span class="em">'
       + esc(meta.clarity.emoji) + '</span>' + esc(meta.clarity.label) + '</span></div>'
     : '';
-  return '<div class="top"><span class="brand">' + EYE + '<b>' + esc(meta.brandName || 'Наглядно')
+  return '<div class="top"><span class="brand">' + EYE + '<b>' + esc(meta.brandName || 'GitSight')
     + '</b></span>' + right + '</div>' + badge;
 }
 
@@ -119,7 +119,7 @@ function body(slide) {
       return '<h2>' + esc(slide.heading || 'Пощупать за 30 секунд') + '</h2><div class="try">' + terms(slide.body || '') + '</div>';
     case 'foretell':
       return '<h2>' + esc(slide.heading || 'Через год') + '</h2><div class="foretell"><p class="line">' + esc(slide.line || '') + '</p></div>'
-        + (slide.cta ? '<div class="cta"><span>' + esc(slide.cta.left || '') + '</span><span>' + esc(slide.cta.right || 'Telegram @naglyadno_tech →') + '</span></div>' : '');
+        + (slide.cta ? '<div class="cta"><span>' + esc(slide.cta.left || '') + '</span><span>' + esc(slide.cta.right || 'Telegram @gitsight_tech →') + '</span></div>' : '');
     case 'fact':
       return '<h1>' + esc(slide.title) + '</h1>' + (slide.body ? '<p>' + terms(slide.body) + '</p>' : '');
     default:

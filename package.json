@@ -1,9 +1,9 @@
 {
-  "name": "naglyadno",
+  "name": "gitsight",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Автоматический контент-пайплайн канала «Наглядно» — слайды в TikTok",
+  "description": "Автоматический контент-пайплайн канала «GitSight» — слайды в TikTok",
   "engines": {
     "node": ">=22"
   },

@@ -1,5 +1,5 @@
 // Hacker News через публичный Algolia API — без ключа.
-const UA = 'naglyadno-bot/0.1 (+https://naglyadno.tech)';
+const UA = 'gitsight-bot/0.1 (+https://gitsight.tech)';
 
 export async function fetchHackerNews({ minPoints = 150, limit = 30 } = {}) {
   const since = Math.floor(Date.now() / 1000) - 5 * 24 * 3600; // 5 дней
