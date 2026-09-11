@@ -30,7 +30,7 @@
 > Новый терминал, чтобы подхватился PATH. Проверка: `node -v` → v24.x
 
 ```bash
-cd D:\claude\naglyadno
+cd D:\claude\gitsight
 npm run cycle        # весь цикл: scout → editor → script → render → publish(manual)
 npm run status       # что в БД и в каком статусе
 ```
@@ -69,7 +69,7 @@ npm run mark-posted -- <id> <ссылка> <views> <likes> <saves> <comments>
 
 - **Просто:** Планировщик заданий Windows на `npm run cycle` 3×/нед.
 - **С историей/ретраями:** n8n уже поднят в Docker (`docker compose up -d`,
-  http://localhost:5678). Импортируй `n8n/workflows/naglyadno.json`, но стадия
+  http://localhost:5678). Импортируй `n8n/workflows/gitsight.json`, но стадия
   `publish` в manual-режиме просто складывает пакет — постить всё равно руками.
 - Пайплайн-сервер для n8n: `npm run server` (порт 8477).
 

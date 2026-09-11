@@ -1,4 +1,4 @@
-# Архитектура автопайплайна «Наглядно»
+# Архитектура автопайплайна «GitSight»
 
 Канал слайдовых каруселей в TikTok, собираемых автоматически: тренды → отбор →
 сценарий → рендер PNG → (ревью в Telegram) → публикация → метрики.
@@ -9,7 +9,7 @@
 │  • Schedule (cron)     │      POST /run/{scout|editor|script|      │  • LLM (Claude Messages API)  │
 │  • HTTP Request → этап │            render|publish|track}          │  • Playwright/Chromium рендер │
 │  • том n8n_data        │  ◀─────────────────────────────────────── │  • заливка S3 + публикация    │
-└────────────────────────┘             {ok, result}                  │  • SQLite (data/naglyadno.db) │
+└────────────────────────┘             {ok, result}                  │  • SQLite (data/gitsight.db) │
                                                                      └──────────────────────────────┘
 ```
 
@@ -44,7 +44,7 @@ n8n только дирижирует (расписание, порядок, р�
 
 ## Хранилище
 
-- `data/naglyadno.db` — SQLite (`node:sqlite`). Таблицы `items`, `runs`, `ideas`.
+- `data/gitsight.db` — SQLite (`node:sqlite`). Таблицы `items`, `runs`, `ideas`.
   Схема: `db/schema.sql`, применяется идемпотентно при каждом старте.
 - Заменяет `content/content-calendar.md` и `content/published-log.csv`.
 - Антиповтор: `isTopicTaken(topic_root, 30)` — тема занята, если её корень
@@ -76,7 +76,7 @@ npm run server         # http://localhost:8477
 
 # 4. n8n
 docker compose up -d   # http://localhost:5678
-#   n8n → Import from File → n8n/workflows/naglyadno.json → Activate
+#   n8n → Import from File → n8n/workflows/gitsight.json → Activate
 ```
 
 Ручной прогон без n8n:

@@ -13,7 +13,7 @@ export const paths = {
   content: join(ROOT, 'content'),
   cardsTemplate: join(ROOT, 'cards', 'template.html'),
   data: join(ROOT, 'data'),
-  db: join(ROOT, 'data', 'naglyadno.db'),
+  db: join(ROOT, 'data', 'gitsight.db'),
   output: join(ROOT, 'agent', 'output'),
 };
 

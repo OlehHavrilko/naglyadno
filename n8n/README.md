@@ -13,9 +13,9 @@ npm run n8n
 
 Откроется http://localhost:5678. Дальше:
 
-1. **Workflows → Import from File** → `n8n/naglyadno-workflow.json`.
-2. **Settings → Variables**: добавь `NAGLYADNO_DIR` = `D:\claude\naglyadno`
-   (или задай переменную окружения `NAGLYADNO_DIR` перед запуском n8n).
+1. **Workflows → Import from File** → `n8n/gitsight-workflow.json`.
+2. **Settings → Variables**: добавь `GITSIGHT_DIR` = `D:\claude\gitsight`
+   (или задай переменную окружения `GITSIGHT_DIR` перед запуском n8n).
 3. Открой workflow, нажми **Execute Workflow** на ноде «cycle full» — разовый прогон.
 4. Убедись, что прошло, и переключи workflow в **Active** — заработает расписание
    (Пн/Ср/Пт 10:00 — цикл, ежедневно 12:00 — метрики; крон правится в нодах-триггерах).
