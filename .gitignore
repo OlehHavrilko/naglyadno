@@ -7,3 +7,14 @@ agent/output/*
 !agent/output/.gitkeep
 *.log
 .DS_Store
+
+# Растровые изображения не хранятся в git — только код и SVG-исходники.
+# Скриншоты/фото для контента держи локально или во внешнем хранилище (S3/CDN),
+# не коммить их сюда. PNG-экспорты логотипа — brand/logo/render.js.
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.bmp
+cards/shots/
