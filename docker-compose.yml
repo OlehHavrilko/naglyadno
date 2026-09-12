@@ -1,11 +1,11 @@
-# n8n — оркестратор пайплайна «Наглядно».
+# n8n — оркестратор пайплайна «GitSight».
 # Тяжёлую работу (LLM, Playwright-рендер, публикация) выполняет локальный
 # Node-сервер на хосте: src/server.js, порт 8477. n8n дергает его по HTTP
 # через host.docker.internal — так Chromium остаётся на хосте, где уже установлен.
 services:
   n8n:
     image: docker.n8n.io/n8nio/n8n:latest
-    container_name: naglyadno-n8n
+    container_name: gitsight-n8n
     restart: unless-stopped
     ports:
       - "5678:5678"
@@ -22,7 +22,7 @@ services:
       # basic-auth на UI (поменяй пароль)
       - N8N_BASIC_AUTH_ACTIVE=true
       - N8N_BASIC_AUTH_USER=admin
-      - N8N_BASIC_AUTH_PASSWORD=naglyadno
+      - N8N_BASIC_AUTH_PASSWORD=gitsight
       # общий секрет для вызовов локального пайплайн-сервера
       - PIPELINE_URL=http://host.docker.internal:8477
       - PIPELINE_TOKEN=${PIPELINE_TOKEN:-change-me-local-token}

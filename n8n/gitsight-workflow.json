@@ -1,5 +1,5 @@
 {
-  "name": "Наглядно — автопайплайн",
+  "name": "GitSight — автопайплайн",
   "nodes": [
     {
       "parameters": {
@@ -31,7 +31,7 @@
     },
     {
       "parameters": {
-        "command": "={{ $env.NAGLYADNO_DIR ? 'cd \"' + $env.NAGLYADNO_DIR + '\" && ' : '' }}node --env-file=.env src/cycle.js full"
+        "command": "={{ $env.GITSIGHT_DIR ? 'cd \"' + $env.GITSIGHT_DIR + '\" && ' : '' }}node --env-file=.env src/cycle.js full"
       },
       "id": "run-cycle",
       "name": "cycle full (scout→publish)",
@@ -42,7 +42,7 @@
     },
     {
       "parameters": {
-        "command": "={{ $env.NAGLYADNO_DIR ? 'cd \"' + $env.NAGLYADNO_DIR + '\" && ' : '' }}node --env-file=.env src/cycle.js track"
+        "command": "={{ $env.GITSIGHT_DIR ? 'cd \"' + $env.GITSIGHT_DIR + '\" && ' : '' }}node --env-file=.env src/cycle.js track"
       },
       "id": "run-track",
       "name": "cycle track",
@@ -73,7 +73,7 @@
     },
     {
       "parameters": {
-        "content": "## Наглядно — автопайплайн\n\n1. Импортируй этот workflow в n8n.\n2. В **Settings → Variables** (или env n8n) задай `NAGLYADNO_DIR` = путь к проекту, напр. `D:\\claude\\naglyadno`.\n3. Проверь, что в PATH процесса n8n есть `node` (запускай n8n из того же терминала, где работает `node -v`).\n4. Все ключи (Anthropic, Ayrshare, S3, Telegram) живут в `.env` проекта — n8n их не дублирует.\n5. Ревью материала приходит в Telegram из самого пайплайна (`src/telegram.js`). `AUTO_PUBLISH=true` в `.env` отключает гейт.\n\nНоды `executeCommand` требуют, чтобы в n8n было разрешено выполнение команд (по умолчанию включено для self-hosted).",
+        "content": "## GitSight — автопайплайн\n\n1. Импортируй этот workflow в n8n.\n2. В **Settings → Variables** (или env n8n) задай `GITSIGHT_DIR` = путь к проекту, напр. `D:\\claude\\gitsight`.\n3. Проверь, что в PATH процесса n8n есть `node` (запускай n8n из того же терминала, где работает `node -v`).\n4. Все ключи (Anthropic, Ayrshare, S3, Telegram) живут в `.env` проекта — n8n их не дублирует.\n5. Ревью материала приходит в Telegram из самого пайплайна (`src/telegram.js`). `AUTO_PUBLISH=true` в `.env` отключает гейт.\n\nНоды `executeCommand` требуют, чтобы в n8n было разрешено выполнение команд (по умолчанию включено для self-hosted).",
         "height": 320,
         "width": 420
       },

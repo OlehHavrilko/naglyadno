@@ -1,5 +1,5 @@
 // Reddit — публичный JSON сабреддита (top за неделю). Ключ не обязателен.
-const UA = 'naglyadno-bot/0.1 (by /u/naglyadno)';
+const UA = 'gitsight-bot/0.1 (by /u/gitsight)';
 const SUBS = [
   'InternetIsBeautiful',
   'LocalLLaMA',

@@ -1,6 +1,6 @@
 // GitHub Trending — HTML-страница, парсим через cheerio. Без ключа.
 import * as cheerio from 'cheerio';
-const UA = 'naglyadno-bot/0.1';
+const UA = 'gitsight-bot/0.1';
 
 export async function fetchGithubTrending({ since = 'daily', limit = 25 } = {}) {
   const r = await fetch(`https://github.com/trending?since=${since}`, {
