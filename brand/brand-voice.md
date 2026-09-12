@@ -1,4 +1,4 @@
-# Тон голоса «Наглядно» — brand-voice.md
+# Тон голоса «GitSight» — brand-voice.md
 
 Файл читают Scriptwriter и Editor перед каждым материалом.
 

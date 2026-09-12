@@ -22,20 +22,53 @@ async function tg(method, payload) {
   return data.result;
 }
 
-export async function sendPreview(item, files, caption) {
-  const chat_id = config.telegram.chatId;
-  // multipart-загрузка альбома
+/**
+ * Режет список файлов на альбомы по правилам Telegram: sendMediaGroup
+ * принимает от 2 до 10 медиа, ровно 1 элемент он отклоняет. Поэтому
+ * альбом из одного файла уходит отдельным sendPhoto, а остальное режется
+ * на равные части (не по 10 подряд — иначе на 11 файлах получится хвост
+ * из одного элемента).
+ */
+function chunkForAlbums(files) {
+  if (files.length <= 1) return files.length ? [files] : [];
+  const parts = Math.ceil(files.length / 10);
+  const size = Math.ceil(files.length / parts);
+  const chunks = [];
+  for (let i = 0; i < files.length; i += size) chunks.push(files.slice(i, i + size));
+  return chunks;
+}
+
+async function sendChunkAsAlbum(chat_id, chunk, offset, extraFirstMedia) {
+  if (chunk.length === 1) {
+    const form = new FormData();
+    form.set('chat_id', chat_id);
+    form.set('photo', new Blob([readFileSync(chunk[0])], { type: 'image/png' }), `${offset + 1}.png`);
+    if (extraFirstMedia?.caption) form.set('caption', extraFirstMedia.caption);
+    const r = await fetch(api('sendPhoto'), { method: 'POST', body: form });
+    const d = await r.json();
+    if (!d.ok) throw new Error(`sendPhoto: ${JSON.stringify(d)}`);
+    return;
+  }
   const form = new FormData();
   form.set('chat_id', chat_id);
-  const media = files.slice(0, 10).map((f, i) => {
+  const media = chunk.map((f, i) => {
     const name = `p${i}`;
-    form.set(name, new Blob([readFileSync(f)], { type: 'image/png' }), `${i + 1}.png`);
-    return { type: 'photo', media: `attach://${name}`, ...(i === 0 ? { caption: `#${item.id} ${item.title || ''}` } : {}) };
+    form.set(name, new Blob([readFileSync(f)], { type: 'image/png' }), `${offset + i + 1}.png`);
+    return { type: 'photo', media: `attach://${name}`, ...(i === 0 && extraFirstMedia ? extraFirstMedia : {}) };
   });
   form.set('media', JSON.stringify(media));
   const r = await fetch(api('sendMediaGroup'), { method: 'POST', body: form });
   const d = await r.json();
   if (!d.ok) throw new Error(`sendMediaGroup: ${JSON.stringify(d)}`);
+}
+
+export async function sendPreview(item, files, caption) {
+  const chat_id = config.telegram.chatId;
+  let offset = 0;
+  for (const chunk of chunkForAlbums(files)) {
+    await sendChunkAsAlbum(chat_id, chunk, offset, offset === 0 ? { caption: `#${item.id} ${item.title || ''}` } : undefined);
+    offset += chunk.length;
+  }
 
   await tg('sendMessage', {
     chat_id,
@@ -84,6 +117,36 @@ export async function waitForDecision(itemId, timeoutMin = config.telegram.appro
     }
   }
   return 'timeout';
+}
+
+/**
+ * Публикация в канал от имени бота. Бот должен быть админом канала
+ * с правом «Публикация сообщений».
+ *
+ * Telegram не принимает больше 10 медиа в одном альбоме, поэтому набор
+ * режется на части: 11 карточек уедут двумя альбомами, а не потеряют последнюю.
+ * Подпись к альбому ограничена 1024 символами, поэтому текст поста уходит
+ * отдельным сообщением следом.
+ *
+ * @param {string[]} files  пути к PNG в порядке публикации
+ * @param {string} text     текст поста (без лимита альбома)
+ */
+export async function publishToChannel(files, text) {
+  const chat_id = config.telegram.channelId;
+  if (!chat_id) throw new Error('TELEGRAM_CHANNEL_ID не задан');
+
+  const chunks = chunkForAlbums(files);
+  let offset = 0;
+  for (const [n, chunk] of chunks.entries()) {
+    await sendChunkAsAlbum(chat_id, chunk, offset);
+    offset += chunk.length;
+    log.info(`альбом ${n + 1} из ${chunks.length}: ${chunk.length} шт. опубликовано`);
+  }
+
+  if (text) {
+    await tg('sendMessage', { chat_id, text, disable_web_page_preview: true });
+  }
+  log.ok(`опубликовано в ${chat_id}: ${files.length} карточек`);
 }
 
 export async function notify(text) {

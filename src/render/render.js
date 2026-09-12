@@ -51,7 +51,7 @@ export async function renderDeck(deck, { outDir, demoUrl } = {}) {
   mkdirSync(dir, { recursive: true });
 
   const meta = {
-    brandName: deck.brandName || 'Наглядно',
+    brandName: deck.brandName || 'GitSight',
     rubric: deck.rubric || 'Проект дня',
     theme: deck.theme || 'dark',
     clarity: deck.clarity || null,

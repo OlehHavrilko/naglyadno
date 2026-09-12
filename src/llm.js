@@ -9,7 +9,7 @@ export function roleSystemPrompt(roleFile) {
   const brandVoice = safeRead(join(paths.brand, 'brand-voice.md'));
   const role = readFileSync(join(paths.agentRoles, roleFile), 'utf8');
   return [
-    'Ты — часть автоматического контент-пайплайна канала «Наглядно».',
+    'Ты — часть автоматического контент-пайплайна канала «GitSight».',
     'Действуй строго по своей роли. Возвращай ТОЛЬКО валидный JSON без обрамляющего текста и без markdown-кодоблоков.',
     '\n\n=== BRAND GUIDE ===\n' + brandGuide,
     '\n\n=== BRAND VOICE ===\n' + brandVoice,
