@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Наглядно — репозитории на подъёме</title>
+<title>GitSight — репозитории на подъёме</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -102,18 +102,16 @@ body.show-safe .safe{display:block}
 <body>
 <div class="slidelabel">trending-repos.html — обложка + 10 карточек 1080×1920 (9:16). Нижние 340 px оставлены под интерфейс TikTok.</div>
 <script>
-const MASCOT = `<svg class="eye" viewBox="0 0 52 52" fill="none">
-  <g stroke="#EDF1F7" stroke-width="2.4" stroke-linecap="round">
-    <path d="M20 45v5M32 45v5"/>
-  </g>
-  <circle cx="26" cy="25" r="20" fill="none" stroke="#EDF1F7" stroke-width="2.4"/>
-  <g fill="#FFB23E">
-    <path d="M26 13 L36.4 19 L36.4 25 L26 25 Z"/>
-    <path d="M36.4 25 L36.4 31 L26 37 L26 25 Z"/>
-    <path d="M26 37 L15.6 31 L15.6 25 L26 25 Z"/>
-    <path d="M15.6 25 L15.6 19 L26 13 L26 25 Z"/>
-  </g>
-  <circle cx="26" cy="25" r="5.4" fill="#6C5CE7"/>
+const MASCOT = `<svg class="eye" viewBox="0 0 220 240" fill="none">
+  <path d="M28,120 C70,42 170,42 212,120 C170,198 70,198 28,120 Z"
+        fill="none" stroke="#FFB23E" stroke-width="14" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M88,90 C120,90 132,102 156,120" fill="none" stroke="#6C5CE7" stroke-width="10" stroke-linecap="round"/>
+  <path d="M88,150 C120,150 132,138 156,120" fill="none" stroke="#6C5CE7" stroke-width="10" stroke-linecap="round"/>
+  <line x1="88" y1="150" x2="88" y2="90" stroke="#6C5CE7" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="88" cy="150" r="13" fill="#6C5CE7"/>
+  <circle cx="88" cy="90" r="13" fill="#6C5CE7"/>
+  <circle cx="156" cy="120" r="20" fill="none" stroke="#EDF1F7" stroke-width="5"/>
+  <circle cx="156" cy="120" r="15" fill="#6C5CE7"/>
 </svg>`;
 
 const CARDS = [
@@ -253,7 +251,7 @@ const ICONS = {
 
 const COVER = `<div class="card cover">
   <div class="head">
-    <span class="brand">${MASCOT}<b>Наглядно</b></span>
+    <span class="brand">${MASCOT}<b>GitSight</b></span>
     <span class="rubric">Топ-подборка</span>
   </div>
   <div class="hero">
@@ -283,7 +281,7 @@ document.body.insertAdjacentHTML('beforeend', CARDS.map((c, i) => {
     : `<div class="visual"><div class="iconbox">${ICONS[c.icon]}</div></div>`;
   return `<div class="card">
     <div class="head">
-      <span class="brand">${MASCOT}<b>Наглядно</b></span>
+      <span class="brand">${MASCOT}<b>GitSight</b></span>
       <span class="num">${String(i + 1).padStart(2, '0')} / ${String(CARDS.length).padStart(2, '0')}</span>
     </div>
     <div class="chip"><small>врубишься за</small>${c.clarity[0]} ${c.clarity[1]}</div>
@@ -294,7 +292,7 @@ document.body.insertAdjacentHTML('beforeend', CARDS.map((c, i) => {
     ${visual}
     <div class="tags">${c.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
     <div class="repo">${c.repoline}</div>
-    <div class="cta"><b>Ссылки «пощупать» — в Telegram</b><span>@naglyadno_tech →</span></div>
+    <div class="cta"><b>Ссылки «пощупать» — в Telegram</b><span>@gitsight_tech →</span></div>
     <div class="safe"></div>
   </div>`;
 }).join(''));
