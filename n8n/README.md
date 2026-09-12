@@ -26,6 +26,9 @@ npm run n8n
 docker compose up -d        # см. docker-compose.yml в корне
 ```
 
+Логин/пароль для UI берутся из `N8N_BASIC_AUTH_USER` / `N8N_BASIC_AUTH_PASSWORD`
+в `.env`.
+
 В этом варианте контейнер n8n **не видит** твой Node-проект. Варианты:
 - прокинуть проект томом и поставить node в образ (сложнее), **или**
 - держать n8n только для расписания, а `executeCommand` заменить на HTTP-ноду,
