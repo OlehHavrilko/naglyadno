@@ -19,10 +19,10 @@ services:
       - N8N_DIAGNOSTICS_ENABLED=false
       - N8N_PERSONALIZATION_ENABLED=false
       - N8N_RUNNERS_ENABLED=true
-      # basic-auth на UI (поменяй пароль)
+      # basic-auth на UI
       - N8N_BASIC_AUTH_ACTIVE=true
-      - N8N_BASIC_AUTH_USER=admin
-      - N8N_BASIC_AUTH_PASSWORD=gitsight
+      - N8N_BASIC_AUTH_USER=${N8N_BASIC_AUTH_USER:-admin}
+      - N8N_BASIC_AUTH_PASSWORD=${N8N_BASIC_AUTH_PASSWORD:-change-me-local-password}
       # общий секрет для вызовов локального пайплайн-сервера
       - PIPELINE_URL=http://host.docker.internal:8477
       - PIPELINE_TOKEN=${PIPELINE_TOKEN:-change-me-local-token}
