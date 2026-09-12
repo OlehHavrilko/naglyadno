@@ -11,6 +11,8 @@ const dir = path.dirname(fileURLToPath(import.meta.url));
 const decks = [
   { file: 'trending-repos.html', outDir: 'render' },
   { file: 'local-ai.html', outDir: 'render-ai' },
+  { file: 'terminal-wow.html', outDir: 'render-wow' },
+  { file: 'time-savers.html', outDir: 'render-tools' },
 ];
 
 const browser = await chromium.launch();

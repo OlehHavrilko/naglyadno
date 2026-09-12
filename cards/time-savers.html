@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GitSight — инструменты, которые экономят часы</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0E1420; --surface:#161E2E; --surface-2:#1E2740;
+  --text:#EDF1F7; --text-muted:#8A97AD;
+  --accent:#FFB23E; --accent-2:#6C5CE7;
+  --font-display:"Unbounded","Onest",system-ui,sans-serif;
+  --font-text:"Onest","Inter",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,monospace;
+  --safe-bottom:340px;  /* интерфейс TikTok на вертикали 9:16 */
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#05070c;font-family:var(--font-text);padding:40px;
+  display:flex;flex-wrap:wrap;gap:32px;justify-content:center;align-items:flex-start}
+
+.card{
+  width:1080px;height:1920px;zoom:.30;
+  background:var(--bg);color:var(--text);overflow:hidden;border-radius:28px;
+  position:relative;display:flex;flex-direction:column;
+  padding:96px 72px var(--safe-bottom);border:1px solid #1c2436;
+}
+
+.head{display:flex;justify-content:space-between;align-items:center}
+.brand{display:flex;align-items:center;gap:16px}
+.brand b{font-family:var(--font-display);font-weight:700;font-size:34px;letter-spacing:-.01em}
+.eye{width:52px;height:52px;flex:0 0 auto}
+.num{font-family:var(--font-mono);font-size:26px;color:var(--accent);letter-spacing:.06em}
+
+.chip{margin-top:40px;align-self:flex-start;background:var(--surface-2);
+  border:2px solid var(--accent);border-radius:999px;padding:12px 24px;font-size:26px}
+.chip small{color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-right:10px;font-size:22px}
+
+.stars{margin-top:24px;display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--font-mono);font-size:34px;font-weight:700;color:var(--accent)}
+.stars .n{color:var(--accent)}
+.stars small{font-family:var(--font-text);font-weight:400;font-size:24px;color:var(--text-muted)}
+
+.owner{margin-top:40px;font-family:var(--font-mono);font-size:28px;color:var(--text-muted)}
+h1{font-family:var(--font-display);font-weight:700;font-size:84px;line-height:1.05;letter-spacing:-.01em;margin-top:12px}
+h1.long{font-size:64px}
+
+.desc{margin-top:32px;font-size:38px;line-height:1.42}
+.desc i{font-style:normal;color:var(--text-muted)}
+
+.visual{margin-top:40px;flex:1;min-height:320px;display:flex;flex-direction:column}
+.shot{flex:1;border-radius:22px;overflow:hidden;background:var(--surface);border:1px solid #2c3650}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+.shot.light{background:#fff}
+.shot.light img{object-position:center}
+.credit{margin-top:16px;font-family:var(--font-mono);font-size:22px;color:var(--text-muted)}
+
+.tags{margin-top:32px;display:flex;flex-wrap:wrap;gap:16px}
+.tag{font-size:28px;color:var(--text);background:rgba(108,92,231,.22);
+  border:1px solid var(--accent-2);border-radius:999px;padding:12px 24px}
+
+.cta{margin-top:36px;background:var(--accent-2);border-radius:20px;padding:30px 36px;
+  display:flex;justify-content:space-between;align-items:center;gap:24px}
+.cta b{font-size:32px;font-weight:600;color:#fff}
+.cta span{font-family:var(--font-mono);font-size:28px;color:#EDE9FF;white-space:nowrap}
+
+.repo{margin-top:24px;font-family:var(--font-mono);font-size:26px;color:var(--text-muted)}
+
+.safe{position:absolute;left:0;right:0;bottom:0;height:var(--safe-bottom);
+  border-top:1px dashed #2c3650;display:none}
+body.show-safe .safe{display:block}
+.slidelabel{position:fixed;left:8px;top:8px;background:#000;color:#5b6b8c;font:12px var(--font-mono);
+  padding:6px 10px;border-radius:6px;z-index:10}
+@media print{body{background:#fff;padding:0;gap:0}.card{zoom:1;margin:0;page-break-after:always;border-radius:0}}
+</style>
+</head>
+<body>
+<div class="slidelabel">time-savers.html — 5 карточек 1080×1920 (9:16). Нижние 340 px оставлены под интерфейс TikTok.</div>
+<script>
+const MASCOT = `<svg class="eye" viewBox="0 0 220 240" fill="none">
+  <path d="M28,120 C70,42 170,42 212,120 C170,198 70,198 28,120 Z"
+        fill="none" stroke="#FFB23E" stroke-width="14" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M88,90 C120,90 132,102 156,120" fill="none" stroke="#6C5CE7" stroke-width="10" stroke-linecap="round"/>
+  <path d="M88,150 C120,150 132,138 156,120" fill="none" stroke="#6C5CE7" stroke-width="10" stroke-linecap="round"/>
+  <line x1="88" y1="150" x2="88" y2="90" stroke="#6C5CE7" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="88" cy="150" r="13" fill="#6C5CE7"/>
+  <circle cx="88" cy="90" r="13" fill="#6C5CE7"/>
+  <circle cx="156" cy="120" r="20" fill="none" stroke="#EDF1F7" stroke-width="5"/>
+  <circle cx="156" cy="120" r="15" fill="#6C5CE7"/>
+</svg>`;
+
+const CARDS = [
+  {
+    owner: 'im2nguyen', repo: 'rover',
+    stars: '3.3k',
+    clarity: ['🟡', '15 сек'],
+    desc: 'Запускаешь в папке с <i>Terraform (описанием инфраструктуры кодом)</i> — получаешь интерактивную схему: что где создастся, что от чего зависит. Вместо чтения простыни плана — картинка.',
+    shot: 'shots-tools/rover.png', light: true,
+    tags: ['#инфраструктура', '#визуализация', '#открытый-код'],
+    repoline: 'github.com/im2nguyen/rover · лицензия MIT',
+  },
+  {
+    owner: 'ostafen', repo: 'digler',
+    stars: '1.5k',
+    clarity: ['🟠', 'надо вникнуть'],
+    desc: 'Восстанавливает удалённые файлы с дисков и образов, даже если файловая система повреждена. Есть и командная строка, и десктопное приложение — на выбор.',
+    shot: 'shots-tools/digler.gif',
+    tags: ['#восстановление-данных', '#открытый-код', '#кроссплатформенно'],
+    repoline: 'github.com/ostafen/digler · лицензия MIT',
+  },
+  {
+    owner: 'abhimanyu003', repo: 'sttr',
+    stars: '1.3k',
+    clarity: ['🟢', '3 сек'],
+    desc: 'Швейцарский нож для строк в терминале: base64, md5, json↔yaml, шифрование и ещё под сотню операций — без похода на десяток разных сайтов-конвертеров.',
+    shot: 'shots-tools/sttr.gif',
+    tags: ['#терминал', '#для-разработчиков', '#открытый-код'],
+    repoline: 'github.com/abhimanyu003/sttr · лицензия MIT',
+  },
+  {
+    owner: 'orhun', repo: 'halp',
+    stars: '767',
+    clarity: ['🟢', '3 сек'],
+    desc: 'Не помнишь, чем вызывается справка у конкретной утилиты — `--help`, `-h` или просто `help`? halp перебирает варианты сам и сразу показывает то, что сработало.',
+    shot: 'shots-tools/halp.gif',
+    tags: ['#терминал', '#для-разработчиков', '#открытый-код'],
+    repoline: 'github.com/orhun/halp · лицензия MIT/Apache-2.0',
+  },
+  {
+    owner: 'sentrux', repo: 'sentrux',
+    stars: '3.2k',
+    clarity: ['🟠', 'надо вникнуть'],
+    desc: 'Датчик качества кода для <i>ИИ-агентов (программ, которые сами пишут и правят код)</i>: считает реальный балл после каждой правки, чтобы агент видел, стало лучше или хуже — а не гадал.',
+    shot: 'shots-tools/sentrux.gif',
+    tags: ['#ии-агенты', '#качество-кода', '#открытый-код'],
+    repoline: 'github.com/sentrux/sentrux · лицензия MIT',
+  },
+];
+
+document.body.insertAdjacentHTML('beforeend', CARDS.map((c, i) => {
+  const visual = `<figure class="visual">
+       <div class="shot${c.light ? ' light' : ''}"><img src="${c.shot}" alt=""></div>
+       <figcaption class="credit">${c.credit || 'скриншот/демо из репозитория проекта'}</figcaption>
+     </figure>`;
+  return `<div class="card">
+    <div class="head">
+      <span class="brand">${MASCOT}<b>GitSight</b></span>
+      <span class="num">${String(i + 1).padStart(2, '0')} / ${String(CARDS.length).padStart(2, '0')}</span>
+    </div>
+    <div class="chip"><small>врубишься за</small>${c.clarity[0]} ${c.clarity[1]}</div>
+    ${c.stars ? `<div class="stars">⭐ <span class="n">${c.stars}</span><small>звёзд на GitHub</small></div>` : ''}
+    <div class="owner">${c.owner} /</div>
+    <h1${c.repo.length > 15 ? ' class="long"' : ''}>${c.repo}</h1>
+    <p class="desc">${c.desc}</p>
+    ${visual}
+    <div class="tags">${c.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+    <div class="repo">${c.repoline}</div>
+    <div class="cta"><b>Ссылки «пощупать» — в Telegram</b><span>@gitsight_tech →</span></div>
+    <div class="safe"></div>
+  </div>`;
+}).join(''));
+</script>
+</body>
+</html>
